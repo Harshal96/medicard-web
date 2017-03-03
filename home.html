@@ -114,6 +114,15 @@ span.psw {
        width: 100%;
     }
 }
+/*Section Backgrounds*/
+#about{
+    background-size: 100% 100%;
+    background: #0096D9; /* For browsers that do not support gradients */    
+    background: -webkit-linear-gradient(left bottom,  #04201A , #0096D9); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(top right,  #04201A , #0096D9); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(top right,  #04201A , #0096D9); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to top right,  #04201A , #0096D9); /* Standard syntax (must be last) */
+}
 </style>
 <head>
 
@@ -148,7 +157,7 @@ span.psw {
   <form class="modal-content animate" action="/action_page.php">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+      <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
@@ -198,7 +207,7 @@ span.psw {
                     <li>
                         <a href="#contact">Contact</a>
                     </li>
-                    <li style="padding-left: 670px ">
+                    <li style="padding-left: 660px ">
                         <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="btn btn-link">Log in</button>
                     </li>
                 </ul>
@@ -209,7 +218,7 @@ span.psw {
     </nav>
 
     <!-- Intro Section -->
-    <section id="intro" class="intro-section">
+    <section id="intro" class="intro-section" style="background-image: url('images/bgSection1.jpg'); background-size: 100% 100%; background-repeat: no-repeat">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -222,7 +231,7 @@ span.psw {
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section">
+    <section id="about" class="about-section ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
