@@ -3,6 +3,46 @@
 
 <head>
 
+    <style type="text/css">
+
+            ul.paging li {
+                padding-left: 15px;
+                padding-right: 15px;
+                padding: 10px;
+                background-color: #f9f9f9;
+                border-radius: 2px;
+                color: black;
+                width: 100%
+            }
+            
+            ul.paging li:hover {
+                background-color: #e0e0e0;
+            }
+
+            ul.red {
+                outline:10px solid red;
+            }
+
+            ul.simplePagerNav li{
+                display: inline-block;
+                float: left;
+                padding: 10px;
+            }
+
+            ul.simplePagerNav li a{
+                color: BLACK;
+                text-decoration: none;
+            }
+
+            li.currentPage {
+                background: WHITE;	
+            }
+
+            ul.simplePagerNav li.currentPage a {
+                color: BLACK;
+            }      
+        </style>
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +80,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Doctor Name</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,10 +94,10 @@
                         <a href="#about">About</a>
                     </li>
                     <li>
-                        <a href="#services">Services</a>
+                        <a href="#services">something cosulting</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#contact">Reviews</a>
                     </li>
                 </ul>
             </div>
@@ -66,28 +106,68 @@
         <!-- /.container -->
     </nav>
 
-    <!-- Intro Section -->
-    <section id="intro" class="intro-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Medicard</h1>
-                    <p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>
-                    <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>About Section</h1>
+                   <!-- <h1>About Section</h1>-->
+                   <div class="content">
+                        <div style="float:left; width:50%;">
+                            <h3 class="m-a-0 m-b-xs"><b>Doctor Name</b></h3><br> <!-- Set Div As your requirement -->
+                            <img src="images/a6.jpg" style="height:250px">
+                            <br>
+                            <hr>
+                            <p><b>Email : </b>abc@yahoo.com</p>
+                            <p><b>Contact : </b>9854621475</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content">
+                        <div style="float:right; width:50%;"><br>
+                            <h4 class="m-a-0 m-b-xs" ><b>List of specialities:</b></h4>
+                             <ul class="list-unstyled m-t-n-sm">
+                        <li class="checkbox">
+                            <label class="ui-check">Nature
+                  </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check"> Food and Drink
+                  </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">Model Released
+                  </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">Animals/Wildlife
+                  </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">Abstract
+                  </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check"> Beauty/Fashion
+                  </label>
+                        </li>
+                        <li class="checkbox">
+                            <label class="ui-check">Business
+                  </label>
+                        </li>
+                    </ul>
+                            <!-- Set Div As your requirement -->
+                            <!--<img src="images/a6.jpg" style="height:250px">-->
+                            <br>
+                            <hr>
+                            <p><b>some stuff : </b>lalalalala</p>
+                            <p><b>some stuff : </b>lalalalal oh my goddd!!!</p>
+                        </div>
+                    </div>
+                    
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Services Section -->
@@ -95,7 +175,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Services Section</h1>
+                    <h1>Consults At</h1>
+        
+                         <div class="bgimg-2 w3-display-container" id = "prescriptions">
+            <div class="title"> <br><br><br>
+                <!--<span class="w3-xxlarge w3-text-black w3-wide">PRESCRIPTIONS</span>-->
+        	</div>
+       
+        	<div>
+                <ul id="p_list" class = "paging">
+                    <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b> Hospital Name</b></span> <span style="float: left; width:40%"><b>Area</b></span><span style="float: left; width:20%"><b>Timings</b></span></li>
+                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> ABC</span> <span style="float: left; width:40%">djsdzgfuidgavuiwefvhaiudvhfjvnzs</span><span style="float: left; width:20%">5-6pm</span></li>
+                     <li> <span style="float: left; width:10%"> 2 </span> <span  style="float: left; width:30%"> XYZ</span> <span style="float: left; width:40%">Mumbai</span><span style="float: left; width:20%">2-4pm</span></li>
+                        <li> <span style="float: left; width:10%"> 3</span> <span  style="float: left; width:30%"> ABCDS</span> <span style="float: left; width:40%">dhsbfhj</span><span style="float: left; width:20%">9-11am</span></li>
+                        <li> <span style="float: left; width:10%"> 4</span> <span  style="float: left; width:30%"> POL</span> <span style="float: left; width:40%">egsyjdrx</span><span style="float: left; width:20%">7-10pm</span></li>
+                	
+                </ul>
+            </div>
+            
+        </div>
                 </div>
             </div>
         </div>
@@ -106,7 +204,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Contact Section</h1>
+                    <h1>Reviews!</h1>
                 </div>
             </div>
         </div>
