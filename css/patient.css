@@ -1,0 +1,51 @@
+.left
+{
+	float: left;
+	width: 40%;
+}
+.right
+{
+	float: right;
+	width: 60%;
+}
+#patient-img
+{
+	max-height: 500px;
+	max-width: 500px;
+}
+.right.details
+{
+	padding-top: 80px;
+	padding-right: 100px;
+	text-align: left;
+	line-height: 20px;
+	
+}
+#p_list, #r_list
+{
+   	list-style: none;
+   	align-items: center;
+}
+#p_list li, #r_list li
+{
+	text-align: left;
+   	padding-left: 15px;
+    padding-right: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 2px;
+    color: black;
+    width: 100%
+}
+#p_list li:hover
+{
+	background-color: #e0e0e0
+}
+#r_list li
+{
+    background-color: #f3f3f3;
+}
+#r_list li:hover
+{
+	background-color:#f9f9f9;
+}

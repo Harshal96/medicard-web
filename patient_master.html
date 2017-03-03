@@ -9,13 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Medicard</title>
+    <title>Patient Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
 <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="css/patient.css">
+
 	<link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,7 +43,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand page-scroll" href="#page-top">About</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,16 +51,19 @@
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden">
-                        <a href="#page-top"></a>
+                        <a href="#page-top">About</a>
                     </li>
                     <li>
-                        <a href="#about">About</a>
+                        <a href="#about">Prescriptions</a>
                     </li>
                     <li>
-                        <a href="#services">Services</a>
+                        <a href="#services">Reports</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#contact">Search</a>
+                    </li>
+                    <li>
+                        <a href="#book">Appointments</a>
                     </li>
                 </ul>
             </div>
@@ -71,9 +77,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Medicard</h1>
-                    <p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>
-                    <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
+                    
+                <div class="left details"> 
+                <h1> Ria Devesh Maheshwari </h1>
+                <img src="images/patienttry.jpg" id="patient-img">
+                <br><br> <p> <b>MediCard Patient ID </b>: 258147369 </p>
+                <br> <b>Phone</b> : 9769259947 
+                <br> <b> Email: </b> lalllala@lalalala.com
+                <br> <b> DOB: </b> 25-07-1996
+                <br> <b> Sex: </b> Female
+                
+                </div>
+
+                <div class="right details">
+                <b> Address: </b> 201, Anand Dham-3 <br> Opp. Amboli Rly Crs. <br> Andheri East <br> Mumbai 400069 <br> Maharshtra, India
+                <br><br> <b> Blood Group: </b> B+ 
+                <br><br> <b> Emergency contact: </b> Mr. Blah Blahbla (father) 965142555 
+                <br><br> <b> Allergies : </b>
+
+                </div>
+                
                 </div>
             </div>
         </div>
@@ -84,7 +107,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>About Section</h1>
+                    <h1>Prescriptions</h1><br>
+                    <ul id="p_list" class = "paging">
+                    <li> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
+                    <li> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
+                                <span style="float: right"> Andheri, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span > Dr. lalalalla </span>  <span style="float: right"> Bandra, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. blah blah </span>  <span style="float: right"> Versova, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
+                </ul>
                 </div>
             </div>
         </div>
@@ -95,7 +127,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Services Section</h1>
+                <h1>Reports</h1>
+
+                <ul id="r_list" class = "paging reports">
+                    <li> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
+                    <li> <span > Amazing Diagnostics Center - Andheri (East), Mumbai </span> <span style="float: right">10-07-2016</span> </li>
+                    <li> <span> Jnwndniwhd - feiuhfiuhf </span>  <span style="float: right"> 20-11-2016  </span> </li>
+                    <li> <span> ifeortgjorege- blah blah </span>  <span style="float: right"> 10-09-2016 </span> </li>
+                    <li> <span> fjwefonfofoerforeifoer- J.K.Money </span>  <span style="float: right"> 05-07-2016 </span> </li>
+                    <li> <span> lalalallalalal- Beshwar </span>  <span style="float: right"> 04-17-2016 </span> </li>
+                </ul>
+
+
                 </div>
             </div>
         </div>
@@ -106,11 +149,43 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Contact Section</h1>
+                    <h1>Search</h1> <br>
+
+                    <div class="left">
+                        FILTER SPECIALITY<BR> FILTER LOCATION
+                    </div>
+                    <div class="right">
+                          <input name="search_text" type="text" class="form-control" id="search_text" placeholder="Search by Name, Speciality or Area" size="28" />  
+                <div>  
+                    <ul id = "p_list" class = "paging"> 
+                        <div id="result"></div>
+                    </ul>
+                </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
     </section>
+
+
+<section id="book" class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>View all appointments</h1> <br>
+
+              
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
 
 	<!--
 	new version from CDN breaks tabs (looks cleaner tho)
