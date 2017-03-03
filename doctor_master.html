@@ -9,11 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Medicard</title>
+    <title>Doctor Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
 <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"> -->
-	<link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/patient.css">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
 
@@ -40,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand page-scroll" href="#page-top">About</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,16 +50,16 @@
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden">
-                        <a href="#page-top"></a>
+                        <a href="#page-top">About</a>
                     </li>
                     <li>
-                        <a href="#about">About</a>
+                        <a href="#about">something cosulting</a>
                     </li>
                     <li>
-                        <a href="#services">Services</a>
+                        <a href="#services">Patient Seacrh</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="doctor_appt.html">Appointments Manager</a>
                     </li>
                 </ul>
             </div>
@@ -67,50 +69,80 @@
     </nav>
 
     <!-- Intro Section -->
-    <section id="intro" class="intro-section">
+        <section id="intro" class="intro-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1>Medicard</h1>
-                    <p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>
-                    <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
-                </div>
+                  <div class="col-lg-12">
+                   <!-- <h1>About Section</h1>-->
+                   <div class="content">
+                        <div style="float:left; width:50%;">
+                            <h3 class="m-a-0 m-b-xs"><b>Dr. Ria Maheshwari</b></h3><br> <!-- Set Div As your requirement -->
+                            <img src="images/patienttry.jpg" style="height:250px">
+                            <br>
+                            <br><br> <p> <b>MediCard Doctor ID </b>: 258147369 </p> 
+                                       
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="content">
+                        <div style="float:right; width:50%;"><br>
+                        <br> <b>Phone</b> : 9769259947 
+                        <br> <br> <b> Email: </b> lalllala@lalalala.com
+                <br><br> <b> DOB: </b> 25-07-1996
+                <br><br> <b> Sex: </b> Female <br><br>
+                             <b> Address: </b> 201, Anand Dham-3 <br> Opp. Amboli Rly Crs. <br> Andheri East <br> Mumbai 400069 <br> Maharshtra, India
+                            
+                        </div>
+                    </div>
+                    
+                    </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+        <!-- Services Section -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>About Section</h1>
+                    <h1>Something consulting</h1><br>
+                    <ul id="p_list" class = "paging">
+                    <li> <b> <span>  Hospital/Clinic name - Location </span> <span style="float: right"> Timimgs</span> </b></li>
+                    <li> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
+                                <span style="float: right"> Andheri, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span > Dr. lalalalla </span>  <span style="float: right"> Bandra, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. blah blah </span>  <span style="float: right"> Versova, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
+                </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
+
+<!-- About Section -->
     <section id="services" class="services-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Services Section</h1>
+                    <h1>Patient Search</h1><br>
+                </div>
+                <div  align="center">
+                    <input name="search_text" type="text" class="form-control" id="search_text" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+                    <div>  
+                    <ul id = "p_list" class = "paging"> 
+                        <div id="result"></div>
+                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+
     <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Contact Section</h1>
-                </div>
-            </div>
-        </div>
-    </section>
 
 	<!--
 	new version from CDN breaks tabs (looks cleaner tho)
