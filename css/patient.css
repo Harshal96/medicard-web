@@ -31,7 +31,8 @@
 	text-align: left;
    	padding-left: 15px;
     padding-right: 15px;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #f9f9f9;
     border-radius: 2px;
     color: black;
