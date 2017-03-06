@@ -264,10 +264,10 @@
                                 <div id="posts_content">
                                     <?php
                                         //Include pagination class file
-                                        include('Pagination.php');
+                                        include('Pagination/Pagination.php');
                                         
                                         //Include database configuration file
-                                        include('dbConfig.php');
+                                        include('Pagination/dbConfig.php');
                                         
                                         $limit = 5;
                                         
@@ -277,7 +277,7 @@
                                         $rowCount = $resultNum['postNum'];
                                         
                                         //initialize pagination class
-                                        $pagConfig = array('baseURL'=>'getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
+                                        $pagConfig = array('baseURL'=>'Pagination/getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
                                         $pagination =  new Pagination($pagConfig);
                                         
                                         //get rows

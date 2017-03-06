@@ -2,7 +2,19 @@
 <html lang="en">
 
 <head>
-
+	<link href='Pagination/styleforpagination.css' rel='stylesheet' type='text/css'>
+	<script src="Pagination/jquery.min.js"></script>
+	<script type="text/javascript">
+	// Show loading overlay when ajax request starts
+	$( document ).ajaxStart(function() {
+		$('.loading-overlay').show();
+	});
+	// Hide loading overlay when ajax request completes
+	$( document ).ajaxStop(function() {
+		$('.loading-overlay').hide();
+	});
+	</script>
+	
    <style type="text/css">
 
             ul.paging2 li  {
