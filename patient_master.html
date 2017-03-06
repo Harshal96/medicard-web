@@ -13,12 +13,12 @@
 
     <!-- Bootstrap Core CSS -->
 <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="css/patient.css">
+ 
 
 	<link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
-
+   <link rel="stylesheet" href="css/patient.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,6 +30,39 @@
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+
+<script type="text/javascript">
+//Function To Display Popup
+function p_div_show() {
+document.getElementById('show_pres').style.display = "block";
+}
+//Function to Hide Popup
+window.onclick=function(event){
+    if(event.target== document.getElementById('show_pres'))
+        { 
+            document.getElementById('show_pres').style.display="none";
+        } 
+if(event.target== document.getElementById('show_rep'))
+        { 
+            document.getElementById('show_rep').style.display="none";
+        } 
+    }
+function p_div_hide(){
+document.getElementById('show_pres').style.display = "none";
+}
+
+function r_div_show() {
+document.getElementById('show_rep').style.display = "block";
+}
+//Function to Hide Popup
+function r_div_hide(){
+document.getElementById('show_rep').style.display = "none";
+}
+</script>
+
+
+
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
@@ -116,10 +149,10 @@
                 <div class="col-lg-12">
                     <h1>Prescriptions</h1><br>
                     <ul id="p_list" class = "paging">
-                    <li> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
-                    <li> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
+                    <li onclick="p_div_show()"> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
+                    <li onclick="p_div_show()"> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
                                 <span style="float: right"> Andheri, Mumbai &nbsp 10-07-2016</span> </li>
-                    <li> <span > Dr. lalalalla </span>  <span style="float: right"> Bandra, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li onclick="p_div_show()"> <span > Dr. lalalalla </span>  <span style="float: right"> Bandra, Mumbai &nbsp 10-07-2016</span> </li>
                     <li> <span> Dr. blah blah </span>  <span style="float: right"> Versova, Mumbai &nbsp 10-07-2016</span> </li>
                     <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
                     <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
@@ -137,9 +170,9 @@
                 <h1>Reports</h1>
 
                 <ul id="r_list" class = "paging reports">
-                    <li> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
-                    <li> <span > Amazing Diagnostics Center - Andheri (East), Mumbai </span> <span style="float: right">10-07-2016</span> </li>
-                    <li> <span> Jnwndniwhd - feiuhfiuhf </span>  <span style="float: right"> 20-11-2016  </span> </li>
+                    <li onclick="r_div_show()"> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
+                    <li onclick="r_div_show()"> <span > Amazing Diagnostics Center - Andheri (East), Mumbai </span> <span style="float: right">10-07-2016</span> </li>
+                    <li onclick="r_div_show()"> <span> Jnwndniwhd - feiuhfiuhf </span>  <span style="float: right"> 20-11-2016  </span> </li>
                     <li> <span> ifeortgjorege- blah blah </span>  <span style="float: right"> 10-09-2016 </span> </li>
                     <li> <span> fjwefonfofoerforeifoer- J.K.Money </span>  <span style="float: right"> 05-07-2016 </span> </li>
                     <li> <span> lalalallalalal- Beshwar </span>  <span style="float: right"> 04-17-2016 </span> </li>
@@ -232,6 +265,28 @@ $(window).scroll(function() {
     }
 });
 </script>
+
+<div id="show_pres" >
+<center>
+<div id="popup">
+<div id="popup_content">
+<button class="close" onclick ="p_div_hide()"> <span aria-hidden="true">&times</span></button>
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+</div></center>
+</div>
+
+
+<div id="show_rep" >
+<center>
+<div id="popup">
+<div id="popup_content">
+<button class="close" onclick ="r_div_hide()"> <span aria-hidden="true">&times</span></button>
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+</div></center>
+</div>
+
+
+
 </body>
 
 </html>
