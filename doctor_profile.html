@@ -5,7 +5,7 @@
 
     <style type="text/css">
 
-            ul.paging li {
+        table.paging td {
                 padding-left: 15px;
                 padding-right: 15px;
                 padding: 10px;
@@ -15,7 +15,7 @@
                 width: 100%
             }
             
-            ul.paging li:hover {
+            table.paging td:hover {
                 background-color: #e0e0e0;
             }
 
@@ -41,6 +41,98 @@
             ul.simplePagerNav li.currentPage a {
                 color: BLACK;
             }      
+
+/* Table CSS */
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px;
+}
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.rwd-table th {
+  display: none;
+}
+.rwd-table td {
+  display: block;
+}
+.rwd-table td:first-child {
+  padding-top: .5em;
+}
+.rwd-table td:last-child {
+  padding-bottom: .5em;
+}
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+@media (min-width: 480px) {
+  .rwd-table td:before {
+    display: none;
+  }
+}
+.rwd-table th, .rwd-table td {
+  text-align: left;
+}
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child, .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child, .rwd-table td:last-child {
+    padding-right: 0;
+  }
+}
+.rwd-table {
+  background: #ff0000 ; 
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  border:none;
+  border-collapse: collapse;
+}
+.rwd-table tr {
+  border-color: #eeeeee;
+}
+
+.rwd-table tr:hover {
+  background: #e0e0e0;
+}
+.rwd-table tr:hover:first-child {
+  background: #eeeeee;
+}
+.rwd-table th, .rwd-table td {
+  margin: .5em 1em;
+  color: BLACK;
+}
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    padding: 1em !important;
+  }
+}
+.rwd-table th, .rwd-table td:before {
+  color: BLACK;
+}
+
+.rwd-table td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.rwd-table td:first-child {
+  border-left: none;
+}
+
+.rwd-table td:last-child {
+  border-right: none;
+}
+/* End Table CSS */
         </style>
     
     <meta charset="utf-8">
@@ -178,18 +270,35 @@
             <div class="title"> <br><br><br>
                 <!--<span class="w3-xxlarge w3-text-black w3-wide">PRESCRIPTIONS</span>-->
         	</div>
-       
-        	<div>
-                <ul id="p_list" class = "paging">
-                    <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b> Hospital Name</b></span> <span style="float: left; width:40%"><b>Area</b></span><span style="float: left; width:20%"><b>Timings</b></span></li>
-                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> ABC</span> <span style="float: left; width:40%">djsdzgfuidgavuiwefvhaiudvhfjvnzs</span><span style="float: left; width:20%">5-6pm</span></li>
-                     <li> <span style="float: left; width:10%"> 2 </span> <span  style="float: left; width:30%"> XYZ</span> <span style="float: left; width:40%">Mumbai</span><span style="float: left; width:20%">2-4pm</span></li>
-                        <li> <span style="float: left; width:10%"> 3</span> <span  style="float: left; width:30%"> ABCDS</span> <span style="float: left; width:40%">dhsbfhj</span><span style="float: left; width:20%">9-11am</span></li>
-                        <li> <span style="float: left; width:10%"> 4</span> <span  style="float: left; width:30%"> POL</span> <span style="float: left; width:40%">egsyjdrx</span><span style="float: left; width:20%">7-10pm</span></li>
-                	
-                </ul>
-            </div>
-            
+        <div>
+            <table class="rwd-table">
+                <tr>
+                    <th>Movie Title</th>
+                    <th>Genre</th>
+                    <th>Year</th>
+                    <th>Gross</th>
+                </tr>
+                <tr>
+                    <td data-th="Sr.">Star Wars</td>
+                    <td data-th="Hospital">Adventure, Sci-fi</td>
+                    <td data-th="Area">1977</td>
+                    <td data-th="Timing">$460,935,665</td>
+                </tr>
+                <tr>
+                    <td data-th="Movie Title">Howard The Duck</td>
+                    <td data-th="Genre">"Comedy"</td>
+                    <td data-th="Year">1986</td>
+                    <td data-th="Gross">$16,295,774</td>
+                </tr>
+                <tr>
+                    <td data-th="Movie Title">American Graffiti</td>
+                    <td data-th="Genre">Comedy, Drama</td>
+                    <td data-th="Year">1973</td>
+                    <td data-th="Gross">$115,000,000</td>
+                </tr>
+            </table>
+
+        </div>    
         </div>
                 </div>
             </div>
