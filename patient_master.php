@@ -52,6 +52,11 @@
         document.getElementById('show_rep').style.display = "none";
         }
     </script>
+	<script>
+		$('tr').click(function() {
+			p_div_show();
+		});
+	</script>
 	
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
         <!-- Navigation -->
@@ -179,7 +184,7 @@
                                             while($row = $query->fetch_assoc()){ 
                                                 $postID = $row['patient_id'];
                                             ?>
-                                        <tr>
+                                        <tr onclick="p_div_show()">
                                             <a href="javascript:void(0);">
                                                 <h2><?php echo $row["Fname"]; ?></h2>
                                             </a>
@@ -200,14 +205,58 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>Reports</h1>
-                        <ul id="r_list" class = "paging reports">
+                        <!--<ul id="r_list" class = "paging reports">
                             <li onclick="r_div_show()"> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
                             <li onclick="r_div_show()"> <span > Amazing Diagnostics Center - Andheri (East), Mumbai </span> <span style="float: right">10-07-2016</span> </li>
                             <li onclick="r_div_show()"> <span> Jnwndniwhd - feiuhfiuhf </span>  <span style="float: right"> 20-11-2016  </span> </li>
                             <li> <span> ifeortgjorege- blah blah </span>  <span style="float: right"> 10-09-2016 </span> </li>
                             <li> <span> fjwefonfofoerforeifoer- J.K.Money </span>  <span style="float: right"> 05-07-2016 </span> </li>
                             <li> <span> lalalallalalal- Beshwar </span>  <span style="float: right"> 04-17-2016 </span> </li>
-                        </ul>
+                        </ul>-->
+						<div class="post-wrapper">
+                                <div class="loading-overlay">
+                                    <div class="overlay-content">Loading.....</div>
+                                </div>
+                                <div id="posts_content">
+                                    <?php
+                                        
+                                        $limit = 5;
+                                        
+                                        //get number of rows
+                                        $queryNum = $db->query("SELECT COUNT(*) as postNum FROM patient_master");
+                                        $resultNum = $queryNum->fetch_assoc();
+                                        $rowCount = $resultNum['postNum'];
+                                        
+                                        //initialize pagination class
+                                        $pagConfig = array('baseURL'=>'Pagination/getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
+                                        $pagination =  new Pagination($pagConfig);
+                                        
+                                        //get rows
+                                        $query = $db->query("SELECT * FROM patient_master ORDER BY patient_id DESC LIMIT $limit");
+                                        
+                                        if($query->num_rows > 0){ ?>
+                                    <table class="rwd-table">
+                                        <tr>
+                                            <th>Movie Title</th>
+                                            <th>Genre</th>
+                                            <th>Year</th>
+                                            <th>Gross</th>
+                                        </tr>
+                                        <?php
+                                            while($row = $query->fetch_assoc()){ 
+                                                $postID = $row['patient_id'];
+                                            ?>
+                                        <tr onclick="p_div_show()">
+                                            <a href="javascript:void(0);">
+                                                <h2><?php echo $row["Fname"]; ?></h2>
+                                            </a>
+                                        </tr>
+                                        <?php } ?>
+                                    </table>
+                                    <?php echo $pagination->createLinks(); ?>
+                                    <?php } ?>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
