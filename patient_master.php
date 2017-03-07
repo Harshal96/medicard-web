@@ -318,7 +318,8 @@
             new version from CDN breaks tabs (looks cleaner tho)
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
             -->
-		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWCPFv8WEXRCb7V5Dnb6vjpoXL_8UZ-8&libraries=places"></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.4.2/velocity.min.js"></script>
@@ -358,15 +359,6 @@
 		  $(function(){
 
 			$("#geocomplete").geocomplete()
-			  .bind("geocode:result", function(event, result){
-				$.log("Result: " + result.formatted_address);
-			  })
-			  .bind("geocode:error", function(event, status){
-				$.log("ERROR: " + status);
-			  })
-			  .bind("geocode:multiple", function(event, results){
-				$.log("Multiple: " + results.length + " results found");
-			  });
 
 			$("#find").click(function(){
 			  $("#geocomplete").trigger("geocode");
