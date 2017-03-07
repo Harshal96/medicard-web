@@ -3,11 +3,12 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans');
 
 body {
     width: 100%;
     height: 100%;
-    font-family: Georgia, serif;
+    font-family: "Droid Sans";
 }
 
 html {
