@@ -149,6 +149,18 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() { 
+    $('#datepicker').datepicker({
+         minDate: 0 
+
+    });
+  } );
+  </script>
     </head>
     <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -349,6 +361,22 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>Appointment</h1>
+                        <div>
+                        <table style="width: 100%; margin-top: 50px">
+                            <tr >
+                                <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: </br><input type="radio" name="timeSlot" value="12p"> 12 PM </input> </td>
+                            </tr>
+                            <tr><td><input type="radio" name="timeSlot" value="2p"> 2 PM </input></td>
+                            </tr>
+                            <tr><td><input type="radio" name="timeSlot" value="2p"> 4 PM </input></td>
+                            </tr>
+                            <tr id="trSeperator"style="height: 10px">
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <button style="width: 100%"> Button </button></td>
+                            </tr>
+                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
