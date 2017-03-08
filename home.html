@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-//use Cassandra;
-$cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.219')
-               ->withPort(9042)
-               ->withCredentials("ria", "medicard")
-               ->build();
-$keyspace  = 'test';
-$session   = $cluster->connect($keyspace);        
-$statement = new Cassandra\SimpleStatement('SELECT * from patient_master where patient_id=769;');
-$future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
-$result    = $future->get();                      // wait for the result, with an optional timeout
-foreach ($result as $row) {
-  //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
-}
-?>
-
 
 <style>
 /* Full-width input fields */
@@ -204,7 +187,7 @@ span.psw {
   <!-- Modal -->
   <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php">
+  <form class="modal-content animate" action="login.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="images/img_avatar1Blue.png" alt="Avatar" class="avatar">
@@ -212,12 +195,12 @@ span.psw {
 
     <div class="container" style="width: 100%">
       <label><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required style="width:100%">
+      <input type="text" placeholder="Enter Username" name="uname" id="uname" required style="width:100%">
 <br/>
       <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required style="width:100%">
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required style="width:100%">
 <br/>
-      <button type="submit" style="width: 100%" class="loginbtn"><b>Login</b></button> <br/>
+      <input type="submit" style="width: 100%" class="loginbtn" value="LOGIN"></input> <br/>
       <input type="checkbox" checked="checked"> Remember me
     </div>
 
