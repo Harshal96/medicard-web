@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<?php
+//use Cassandra;
+$cluster = Cassandra::cluster()
+               ->withContactPoints('192.168.43.219')
+               ->withPort(9042)
+               ->withCredentials("ria", "medicard")
+               ->build();
+$keyspace  = 'test';
+$session   = $cluster->connect($keyspace);        
+$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id='51862-215';");
+$future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
+$result    = $future->get();                      // wait for the result, with an optional timeout
+foreach ($result as $row) {
+  echo $row['doctor_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
+}
+?>
+
+
     <head>
         <link href='Pagination/styleforpagination.css' rel='stylesheet' type='text/css'>
         <script src="Pagination/jquery.min.js"></script>
@@ -191,13 +210,13 @@
                         <!-- <h1>About Section</h1>-->
                         <div class="content">
                             <div style="float:left; width:50%;">
-                                <h3 class="m-a-0 m-b-xs"><b>Doctor Name</b></h3>
+                                <h3 class="m-a-0 m-b-xs"><b><?= $row['fname'].' '.$row['mname'].' '.$row['lname']; ?></b></h3>
                                 <br> <!-- Set Div As your requirement -->
                                 <img src="images/a6.jpg" style="height:250px">
                                 <br>
                                 <hr>
-                                <p><b>Email : </b>abc@yahoo.com</p>
-                                <p><b>Contact : </b>9854621475</p>
+                                <p><b>Email : </b><?= $row['email'] ?>/p>
+                                <p><b>Contact : </b><?= $row['mobile'] ?></p>
                             </div>
                         </div>
                         <div class="content">

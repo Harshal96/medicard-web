@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+//use Cassandra;
+$cluster = Cassandra::cluster()
+               ->withContactPoints('192.168.43.219')
+               ->withPort(9042)
+               ->withCredentials("ria", "medicard")
+               ->build();
+$keyspace  = 'test';
+$session   = $cluster->connect($keyspace);        
+$statement = new Cassandra\SimpleStatement('SELECT * from patient_master where patient_id=769;');
+$future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
+$result    = $future->get();                      // wait for the result, with an optional timeout
+foreach ($result as $row) {
+  echo $row['patient_id'] . "	" . $row['fname'] . "	" . $row['gender'] . "<br>";
+}
+?>
+
 
 <head>
 <style type="text/css">
