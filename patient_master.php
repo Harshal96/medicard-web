@@ -2,11 +2,9 @@
 <html lang="en">
 	
 	<?php
-
-	$username = $_POST['uname'];
-	$password = $_POST['psw'];
-	$_SESSION['userid'] = $username;
-
+	session_start();
+	$username = $_SESSION['userid'];
+	
 	$cluster = Cassandra::cluster()
 			->withContactPoints('192.168.43.194')
 			->withPort(9042)
@@ -17,15 +15,14 @@
 
 	$session = $cluster->connect($keyspace);
 
-	$statement = new Cassandra\SimpleStatement ("SELECT email, patient_password from patient_master where email = '".$username."' and patient_password = '".$password."' ALLOW FILTERING");
+	$statement = new Cassandra\SimpleStatement ("SELECT * from patient_master where email = '".$username."' ALLOW FILTERING");
 
 	$future = $session->executeAsync($statement);
 
 	$result = $future->get();
 
 	foreach ($result as $row) {
-		header("Location: patient_master.php");
-		die();
+		//echo $row['patient_id'] . "	" . $row['fname'] . "	" . $row['lname'] . "	" . $row['gender'] . "<br>";
 	}
 	?>
 	
@@ -133,24 +130,24 @@
                         <!-- <h1>About Section</h1>-->
                         <div class="content">
                             <div style="float:left; width:50%;">
-                                <h3 class="m-a-0 m-b-xs"><b>Ria Maheshwari</b></h3>
+                                <h3 class="m-a-0 m-b-xs"><b><?= $row['fname'].' '.$row['mname'].' '.$row['lname']; ?></b></h3>
                                 <br> <!-- Set Div As your requirement -->
                                 <img src="images/patienttry.jpg" style="height:250px">
                                 <br>
                                 <br><br> 
-                                <p> <b>MediCard Patient ID </b>: 258147369 </p>
-                                <br> <b>Phone</b> : 9769259947 
+                                <p> <b>MediCard Patient ID </b>: <?= $row['patient_id'] ?> </p>
+                                <br> <b>Phone</b> : <?= $row['mobile'] ?>
                             </div>
                         </div>
                         <div class="content">
                             <div style="float:right; width:50%;"><br>
-                                <br> <b> Email: </b> lalllala@lalalala.com
-                                <br><br> <b> DOB: </b> 25-07-1996
-                                <br><br> <b> Sex: </b> Female <br><br>
-                                <b> Address: </b> 201, Anand Dham-3 <br> Opp. Amboli Rly Crs. <br> Andheri East <br> Mumbai 400069 <br> Maharshtra, India
-                                <br><br> <b> Blood Group: </b> B+ 
-                                <br><br> <b> Emergency contact: </b> Mr. Blah Blahbla (father) 965142555 
-                                <br><br> <b> Allergies : </b>
+                                <br> <b> Email: </b> <?= $row['mobile'] ?>
+                                <br><br> <b> DOB: </b> <?= $row['dob'] ?>
+                                <br><br> <b> Sex: </b> <?= $row['gender'] ?> <br><br>
+                                <b> Address: </b> 201, Anand Dham-3 <br> <?= $row['housenumber'].' '.$row['society'].'<br>'.$row['locality'].' '.$row['street'].'<br>'.$row['city'].'-'.$row['pin'].'<br>'.$row['state'].' '. $row['country'] ?> 
+                                <br><br> <b> Blood Group: </b>  <?= $row['bloodgroup'] ?> 
+                                <br><br> <b> Emergency contact: </b> <?= $row['emergencycontact'] ?>
+                                <br><br> <b> Allergies : </b> <?= $row['allergies'] ?>
                                 <br>
                             </div>
                         </div>

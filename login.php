@@ -24,6 +24,5 @@ $result = $future->get();
 
 foreach ($result as $row) {
 	header("Location: patient_master.php");
-	die();
 }
 ?>
