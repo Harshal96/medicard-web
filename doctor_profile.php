@@ -18,7 +18,6 @@ foreach ($result as $row) {
 }
 ?>
 
-
     <head>
         <link href='Pagination/styleforpagination.css' rel='stylesheet' type='text/css'>
         <script src="Pagination/jquery.min.js"></script>
@@ -168,6 +167,18 @@ foreach ($result as $row) {
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() { 
+    $('#datepicker').datepicker({
+         minDate: 0 
+
+    });
+  } );
+  </script>
     </head>
     <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -191,7 +202,10 @@ foreach ($result as $row) {
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a href="#services">something cosulting</a>
+                            <a href="#services">Something cosulting</a>
+                        </li>
+                        <li>
+                            <a href="#appointment">Appointment</a>
                         </li>
                         <li>
                             <a href="#contact">Reviews</a>
@@ -283,10 +297,10 @@ foreach ($result as $row) {
                                 <div id="posts_content">
                                     <?php
                                         //Include pagination class file
-                                        include('Pagination/Pagination.php');
+                                        //include('Pagination.php');
                                         
                                         //Include database configuration file
-                                        include('Pagination/dbConfig.php');
+                                        //include('dbConfig.php');
                                         
                                         $limit = 5;
                                         
@@ -296,7 +310,7 @@ foreach ($result as $row) {
                                         $rowCount = $resultNum['postNum'];
                                         
                                         //initialize pagination class
-                                        $pagConfig = array('baseURL'=>'Pagination/getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
+                                        $pagConfig = array('baseURL'=>'getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
                                         $pagination =  new Pagination($pagConfig);
                                         
                                         //get rows
@@ -354,6 +368,32 @@ foreach ($result as $row) {
                                 </table>
                                 
                                 </div>   --> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Appointment Section-->
+        <section id="appointment" class="contact-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Appointment</h1>
+                        <div>
+                        <table style="width: 100%; margin-top: 50px">
+                            <tr >
+                                <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: </br><input type="radio" name="timeSlot" value="12p"> 12 PM </input> </td>
+                            </tr>
+                            <tr><td><input type="radio" name="timeSlot" value="2p"> 2 PM </input></td>
+                            </tr>
+                            <tr><td><input type="radio" name="timeSlot" value="2p"> 4 PM </input></td>
+                            </tr>
+                            <tr id="trSeperator"style="height: 10px">
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <button style="width: 100%"> Button </button></td>
+                            </tr>
+                        </table>
                         </div>
                     </div>
                 </div>
