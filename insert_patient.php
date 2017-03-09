@@ -8,6 +8,7 @@
 		$keyspace  = 'test';
 		$session   = $cluster->connect($keyspace);
         
+        $patient_id= ($_POST['patient_id']);
         $f_name= ($_POST['first_name']);
         $m_name= ($_POST['middle_name']);
         $l_name= ($_POST['last_name']);
@@ -29,12 +30,15 @@
         $pincode= ($_POST['pincode']);
         $address= ($_POST['address']);
         $landmark= ($_POST['landmark']);
+        $dob=$date.'/'.$month.'/'.$year;
         //$photo=
         
-        $statement = new Cassandra\SimpleStatement("INSERT INTO patient_master VALUES ('$f_name','$m_name','$l_name','$emailid','$password','$confirm_pwd','$gender','$phone','$e_contact','$date','$month','$year','$aadhar_no','$passport_no','$blood_grp','$allergies','$country','$city','$pincode','$address','$landmark','$photo')");
+        $statement = new Cassandra\SimpleStatement("INSERT INTO patient_master(patient_id, Patient_Passsword, Fname, Lname, Mname, Gender, Mobile, Email, EmergencyContact, BloodGroup, AadharCard, PassportNumber, DOB, Allergies, HouseNumber, Society, Street, Locality, City, Pin, State, Country, OfficeName, OfficeContact, OHouseNumber, OSociety, OStreet, OLocality, oCity, OPin, Ostate, OCountry) VALUES (".$patient_id.",'".$password."','".$f_name."','".$l_name."','".$m_name."','".$gender."','".$phone."','".$emailid."','".$e_contact."','".$blood_grp."','".$aadhar_no."','".$passport_no."','".$dob."','".$allergies."','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','','','','','','','','','','')");
+
+        /*$statement = new Cassandra\SimpleStatement("INSERT INTO patient_master(patient_id, Patient_Passsword, Fname, Lname, Mname, Gender, Mobile, Email, EmergencyContact, BloodGroup, AadharCard, PassportNumber, DOB, Allergies, HouseNumber, Society, Street, Locality, City, Pin, State, Country, OfficeName, OfficeContact, OHouseNumber, OSociety, OStreet, OLocality, oCity, OPin, Ostate, OCountry) VALUES (".$patient_id.",'".$password."','".$f_name."','".$l_name."','".$m_name."','".$gender."','".$phone."','".$emailid."','".$e_contact."','".$blood_grp."','".$aadhar_no."','".$passport_no."','".$dob."','".$allergies."','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','','','','','','','','','','')");*/
         
-        /*$sql=mysqli_query("INSERT INTO patient_master VALUES ('$f_name','$m_name','$l_name','$emailid','$password','$confirm_pwd','$gender','$phone','$e_contact','$date','$month','$year','$aadhar_no','$passport_no','$blood_grp','$allergies','$country','$city','$pincode','$address','$landmark','$photo')");*/
+        $future    = $session->executeAsync($statement);
         
-        header("location: add_new_everything.html");
+       /* header("location: add_new_everything.php");*/
         
 ?>
