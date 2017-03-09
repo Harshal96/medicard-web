@@ -4,11 +4,7 @@
     $p_id = $_POST['search_pid'];
     $d_id = $_POST['d_id'];
     
-    $cluster = Cassandra::cluster()
-            ->withContactPoints('192.168.43.194')
-            ->withPort(9042)
-            ->withCredentials("medicard", "medicard")
-            ->build();
+    include 'connectivity.php';
 
     $keyspace = 'test';
 

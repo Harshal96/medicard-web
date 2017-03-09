@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-//use Cassandra;
-$cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.219')
-               ->withPort(9042)
-               ->withCredentials("ria", "medicard")
-               ->build();
+
+include 'connectivity.php';
+
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);  
 $id= $_GET['id'] ;      

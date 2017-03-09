@@ -6,12 +6,8 @@ session_start();
 $doctor_email_here = $_SESSION['userid'];
 $patientemail = $_SESSION['searchpid'];
 
-//use Cassandra;
-$cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.219')
-               ->withPort(9042)
-               ->withCredentials("ria", "medicard")
-               ->build();
+include 'connectivity.php';
+
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);        
 $statement = new Cassandra\SimpleStatement("SELECT * from patient_master where email='".$patientemail."' ALLOW FILTERING");

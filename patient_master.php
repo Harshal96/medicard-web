@@ -5,11 +5,7 @@
 	session_start();
 	$username = $_SESSION['userid'];
 	
-	$cluster = Cassandra::cluster()
-			->withContactPoints('192.168.43.219')
-			->withPort(9042)
-			->withCredentials("ria", "medicard")
-			->build();
+	include 'connectivity.php';
 
 	$keyspace = 'test';
 
@@ -201,10 +197,9 @@
 
                                     <table class="rwd-table">
                                         <tr>
-                                            <th>Movie Title</th>
-                                            <th>Genre</th>
-                                            <th>Year</th>
-                                            <th>Gross</th>
+                                            <th>Report description</th>
+                                            <th>File</th>
+                                            <th>Time</th>
                                         </tr>
                                         
                                         
