@@ -8,13 +8,15 @@ $cluster = Cassandra::cluster()
                ->withCredentials("ria", "medicard")
                ->build();
 $keyspace  = 'test';
-$session   = $cluster->connect($keyspace);        
-$statement = new Cassandra\SimpleStatement('SELECT * from diagnostics_master where diagnostics_id=655;');
+$session   = $cluster->connect($keyspace);  
+$id= $_GET['id'] ;      
+$statement = new Cassandra\SimpleStatement("SELECT * from diagnostics_master where diagnostics_id=".$id.";");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
   //echo $row['chemist_id'] . "   " . $row['area'] . "    " . $row['city'] . "<br>";
 }
+
 ?>
 <head>
 
@@ -162,11 +164,16 @@ foreach ($result as $row) {
                     	<div>
                 <ul id="p_list" class = "paging">
                     <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b>Test Name</b></span> <span style="float: left; width:40%"><b>Cost</b></span><span style="float: left; width:20%"><b>Specifications</b></span></li>
-                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> ABC</span> <span style="float: left; width:40%">750</span><span style="float: left; width:20%">haha</span></li>
-                     <li> <span style="float: left; width:10%"> 2 </span> <span  style="float: left; width:30%"> XYZ</span> <span style="float: left; width:40%">300</span><span style="float: left; width:20%">jaja</span></li>
-                        <li> <span style="float: left; width:10%"> 3</span> <span  style="float: left; width:30%"> ABCDS</span> <span style="float: left; width:40%">500</span><span style="float: left; width:20%">yeayy</span></li>
-                        <li> <span style="float: left; width:10%"> 4</span> <span  style="float: left; width:30%"> POL</span> <span style="float: left; width:40%">600</span><span style="float: left; width:20%">yolo</span></li>
-                	
+<?php
+$statement2 = new Cassandra\SimpleStatement("SELECT * from diagnostics_services where diagnostics_id=".$row['diagnostics_id']." ALLOW FILTERING;");
+$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+$result2    = $future2->get();  
+foreach ($result2 as $row2 ) {
+?> 
+<li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> <?= $row2['test'] ?></span> <span style="float: left; width:40%"><?= $row2['cost'] ?></span><span style="float: left; width:20%"><?= $row2['dept'] ?></span></li>
+<?php
+}
+?>
                 </ul>
             </div>
                 </div>

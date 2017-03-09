@@ -2,26 +2,25 @@
 <html lang="en">
 
 <?php
+session_start();
+
+$patientemail = $_SESSION['searchpid'];
+
 //use Cassandra;
 $cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.219')
+               ->withContactPoints('192.168.43.194')
                ->withPort(9042)
-               ->withCredentials("ria", "medicard")
+               ->withCredentials("medicard", "medicard")
                ->build();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);        
-$statement = new Cassandra\SimpleStatement('SELECT * from patient_master where patient_id=769;');
+$statement = new Cassandra\SimpleStatement("SELECT * from patient_master where email='".$patientemail."' ALLOW FILTERING");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
   //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
 }
 ?>
-
-
-
-
-
 
 <head>
 
@@ -81,6 +80,9 @@ foreach ($result as $row) {
                     <li>
                         <a href="#services">Reports</a>
                     </li>
+			<li>
+                        <a href="#writeAPrescription">Write a Prescription</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -131,7 +133,28 @@ foreach ($result as $row) {
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Prescriptions</h1><br>
-                    <ul id="p_list" class = "paging">
+			<?php
+			$ppid = $row['patient_id'];
+
+			$statement2 = new Cassandra\SimpleStatement("SELECT * from prescriptions where patient_id=".$ppid." ALLOW FILTERING");
+			$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+			$result2    = $future2->get();                      // wait for the result, with an optional timeout
+			
+			foreach ($result2 as $row2) {
+				$docid = $row2['doctor_id']; 
+				echo $docid;
+				$statement3 = new Cassandra\SimpleStatement("SELECT fname, mname, lname from doctor_master where doctor_id = ".$docid." ALLOW FILTERING");
+				$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+				$result3    = $future3->get();                      // wait for the result, with an optional timeout
+
+				foreach ($result3 as $row3) {
+echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+ }
+				
+				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+			}
+			?>
+                    <!--<ul id="p_list" class = "paging">
                     <li> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
                     <li> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
                                 <span style="float: right"> Andheri, Mumbai &nbsp 10-07-2016</span> </li>
@@ -139,7 +162,7 @@ foreach ($result as $row) {
                     <li> <span> Dr. blah blah </span>  <span style="float: right"> Versova, Mumbai &nbsp 10-07-2016</span> </li>
                     <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
                     <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
-                </ul>
+                </ul>-->
                 </div>
             </div>
         </div>
@@ -151,21 +174,61 @@ foreach ($result as $row) {
             <div class="row">
                 <div class="col-lg-12">
                 <h1>Reports</h1>
+		<?php
 
-                <ul id="r_list" class = "paging reports">
+			$statement2 = new Cassandra\SimpleStatement("SELECT * from prescriptions where patient_id=".$ppid." ALLOW FILTERING");
+			$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+			$result2    = $future2->get();                      // wait for the result, with an optional timeout
+			
+			foreach ($result2 as $row2) {
+				$docid = $row2['doctor_id']; 
+
+				$statement3 = new Cassandra\SimpleStatement("SELECT fname, mname, lname from doctor_master where doctor_id = ".$docid." ALLOW FILTERING");
+				$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+				$result3    = $future3->get();                      // wait for the result, with an optional timeout
+
+				foreach ($result3 as $row3) {
+echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+ }
+				
+				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+			}
+			?>
+
+                <!--<ul id="r_list" class = "paging reports">
                     <li> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
                     <li> <span > Amazing Diagnostics Center - Andheri (East), Mumbai </span> <span style="float: right">10-07-2016</span> </li>
                     <li> <span> Jnwndniwhd - feiuhfiuhf </span>  <span style="float: right"> 20-11-2016  </span> </li>
                     <li> <span> ifeortgjorege- blah blah </span>  <span style="float: right"> 10-09-2016 </span> </li>
                     <li> <span> fjwefonfofoerforeifoer- J.K.Money </span>  <span style="float: right"> 05-07-2016 </span> </li>
                     <li> <span> lalalallalalal- Beshwar </span>  <span style="float: right"> 04-17-2016 </span> </li>
-                </ul>
+                </ul>-->
 
 
                 </div>
             </div>
         </div>
     </section>
+
+    <section id="writeAPrescription" class="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Write a Prescription</h1><br>
+		    <form action = "" method="post">
+			<input type="label" id="doctor-id">
+			<input type="label" id="patient-id">
+                    	<input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Enter Symptoms" size="28" style="width: 50%" />  
+			<input name="detected_disease" type="text" class="form-control" id="detected_disease" placeholder="Enter Detected Disease" size="28" style="width: 50%" />
+			<input name="Medicines" type="text" class="form-control" id="Medicines" placeholder="Enter Medicines" size="28" style="width: 50%" />
+			<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />
+			<input type="submit" value="Save" />
+		    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
 	<!--
 	new version from CDN breaks tabs (looks cleaner tho)
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>

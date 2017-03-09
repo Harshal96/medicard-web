@@ -271,7 +271,10 @@
                     <h1>Patient Search</h1><br>
                 </div>
                 <div  align="center">
-                    <input name="search_text" type="text" class="form-control" id="search_text" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+		    <form action = "searchpatientid.php" method="post">
+                    	<input name="search_patient_id" type="text" class="form-control" id="search_patient_id" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+			<input type="submit" value="Search" />
+		    </form>
                     <div>  
                     <ul id = "p_list" class = "paging"> 
                         <div id="result"></div>
