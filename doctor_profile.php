@@ -4,14 +4,14 @@
 <?php
 //use Cassandra;
 $cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.194')
+               ->withContactPoints('192.168.43.219')
                ->withPort(9042)
-               ->withCredentials("medicard", "medicard")
+               ->withCredentials("ria", "medicard")
                ->build();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);
-//$id= $_GET['id'] ;      
-$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=990;");
+$id= $_GET['id'] ;      
+$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=".$id.";");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
@@ -230,7 +230,7 @@ foreach ($result as $row) {
                                 <img src="images/a6.jpg" style="height:250px">
                                 <br>
                                 <hr>
-                                <p><b>Email : </b><?= $row['email'] ?>/p>
+                                <p><b>Email : </b><?= $row['email'] ?></p>
                                 <p><b>Contact : </b><?= $row['mobile'] ?></p>
                             </div>
                         </div>
@@ -300,7 +300,7 @@ foreach ($result as $row) {
 
                                     <?php
 
-                                    $statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where doctor_id=990 ALLOW FILTERING;");
+                                    $statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where doctor_id=".$id." ALLOW FILTERING;");
                                     $future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
                                     $result2    = $future2->get();                      // wait for the result, with an optional timeout
                                     foreach ($result2 as $row2) {
