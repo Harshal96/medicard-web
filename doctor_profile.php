@@ -328,6 +328,7 @@ foreach ($result3 as $row3) {
                     </div>
                 </div>
             </div>
+            </div>
         </section>
         <!-- Appointment Section-->
         <section id="appointment" class="contact-section">
@@ -338,11 +339,11 @@ foreach ($result3 as $row3) {
                         <div>
                         <table style="width: 100%; margin-top: 50px">
                             <tr >
-                                <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: </br><input type="radio" name="timeSlot" value="12p"> 12 PM </input> </td>
+                                <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: <br><input type="radio" name="timeSlot" value="12p" value ="12PM" /> </td>
                             </tr>
-                            <tr><td><input type="radio" name="timeSlot" value="2p"> 2 PM </input></td>
+                            <tr><td><input type="radio" name="timeSlot" value="2PM" /></td>
                             </tr>
-                            <tr><td><input type="radio" name="timeSlot" value="2p"> 4 PM </input></td>
+                            <tr><td><input type="radio" name="timeSlot" value="2PM"/ ></td>
                             </tr>
                             <tr id="trSeperator"style="height: 10px">
                             </tr>

@@ -213,17 +213,15 @@
                                 </div>
                             </div>
                     </div>
-                </div>
-            </div>
         </section>
         <!-- Search Section -->
         <section id="contact" class="contact-section">
             <div class="container">
                 <div class="row">
                 <h1>Search</h1>
-					<form>
-					  <input id="geocomplete" type="text" placeholder="Type in an address" size="40" />
-					  <input list="browsers" name="browser">
+					<form action="searchDoctor.php" method="post">
+					  <input id="geocomplete" name="geocomplete" type="text" placeholder="Type in an address" size="40" />
+					  <input list="browsers" name="speciality" id="speciality">
 					  <datalist id="browsers">
 						<option value="Allergist ">
 						<option value="Anesthesiologist">
@@ -254,6 +252,7 @@
 						<option value="Diagnostic Radiologist">
 						<option value="Rheumatologist ">
 						<option value="Urologist">
+						<option value="Diagnostics">
 					  </datalist>
 					  <input type="submit" value="Search">
 					</form>

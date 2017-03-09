@@ -147,17 +147,12 @@ foreach ($result as $row) {
 				$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
 				$result3    = $future3->get();                      // wait for the result, with an optional timeout
 
-				foreach ($result3 as $row3) {
-<<<<<<< Updated upstream
-//echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
- }
-=======
-				//echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
-				 }
->>>>>>> Stashed changes
+				foreach ($result3 as $row3) { }
+
 				
 				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
 			}
+        
 			?>
                     <!--<ul id="p_list" class = "paging">
                     <li> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
