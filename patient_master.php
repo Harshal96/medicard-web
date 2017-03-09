@@ -78,11 +78,6 @@
         document.getElementById('show_rep').style.display = "none";
         }
     </script>
-	<script>
-		$('tr').click(function() {
-			p_div_show();
-		});
-	</script>
 	
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
         <!-- Navigation -->
@@ -175,7 +170,7 @@
 				$result3    = $future3->get();                      // wait for the result, with an optional timeout
 
 				foreach ($result3 as $row3) {
-					//echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+					//
 				}
 				
 				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
@@ -197,7 +192,7 @@
 
      
         <!-- Services Section -->
-        <section id="services" class="services-section">
+        <!--<section id="services" class="services-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -214,7 +209,12 @@
                                         
                                         
                                     </table>
+<<<<<<< Updated upstream
                                   
+=======
+                                    <?php echo $pagination->createLinks(); ?>
+                                    <?php } ?>
+>>>>>>> Stashed changes
                                 </div>
                             </div>
                     </div>
