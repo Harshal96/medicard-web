@@ -192,7 +192,7 @@
 
      
         <!-- Services Section -->
-        <!--<section id="services" class="services-section">
+        <section id="services" class="services-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -209,12 +209,7 @@
                                         
                                         
                                     </table>
-<<<<<<< Updated upstream
-                                  
-=======
-                                    <?php echo $pagination->createLinks(); ?>
-                                    <?php } ?>
->>>>>>> Stashed changes
+
                                 </div>
                             </div>
                     </div>
