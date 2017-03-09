@@ -7,7 +7,7 @@ require 'vendor/autoload.php';
 $client = new GuzzleHttp\Client();
 
 // simple API call
-$res = $client->request('GET', 'http://192.168.43.194/medicard-web/api/test', [
+$res = $client->request('GET', 'http://192.168.43.194/medicard-web/application/api/test', [
     // username and password
     'auth' => ['demouser', '123']
 ]);
