@@ -8,12 +8,13 @@ $cluster = Cassandra::cluster()
                ->withCredentials("ria", "medicard")
                ->build();
 $keyspace  = 'test';
-$session   = $cluster->connect($keyspace);        
-$statement = new Cassandra\SimpleStatement('SELECT * from chemist where chemist_id=990;');
+$session   = $cluster->connect($keyspace);    
+$id= $_GET['id'] ;
+$statement = new Cassandra\SimpleStatement("SELECT * from chemist where chemist_id=".$id.";");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
-  echo $row['chemist_id'] . "	" . $row['area'] . "	" . $row['city'] . "<br>";
+  //echo $row['chemist_id'] . "	" . $row['area'] . "	" . $row['city'] . "<br>";
 }
 ?>
 
