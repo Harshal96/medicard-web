@@ -4,14 +4,14 @@
 <?php
 //use Cassandra;
 $cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.219')
+               ->withContactPoints('192.168.43.194')
                ->withPort(9042)
-               ->withCredentials("ria", "medicard")
+               ->withCredentials("medicard", "medicard")
                ->build();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);
-$id= $_GET['id'] ;      
-$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=".$id.";");
+//$id= $_GET['id'] ;      
+$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=990;");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
@@ -298,29 +298,28 @@ foreach ($result as $row) {
                                         <th>Basic fees Rs</th>
                                     </tr>
 
-<?php
+                                    <?php
 
-$statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where doctor_id=".$id." ALLOW FILTERING;");
-$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
-$result2    = $future2->get();                      // wait for the result, with an optional timeout
-foreach ($result2 as $row2) {
-  
+                                    $statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where doctor_id=990 ALLOW FILTERING;");
+                                    $future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+                                    $result2    = $future2->get();                      // wait for the result, with an optional timeout
+                                    foreach ($result2 as $row2) {
 
-$statement3 = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where hnc_id=".$row2['hnc_id']." ALLOW FILTERING;");
-$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
-$result3    = $future3->get();                      // wait for the result, with an optional timeout
-foreach ($result3 as $row3) {
+                                        $statement3 = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where hnc_id=".$row2['hnc_id']." ALLOW FILTERING;");
+                                        $future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+                                        $result3    = $future3->get();                      // wait for the result, with an optional timeout
+                                        foreach ($result3 as $row3) {
 
-?>
-                                    <tr>
-                                        <td data-th="Sr."><?= $row3['name'] ?></td>
-                                        <td data-th="Hospital"> <?= $row3['area'] ?></td>
-                                        <td data-th="Area"> <?= $row2['dayandtime'] ?></td>
-                                        <td data-th="Timing"><?= $row2['fees'] ?></td>
-                                    </tr>
-<?php
-}}
-?>
+                                        ?>
+                                        <tr>
+                                            <td data-th="Sr."><?= $row3['name'] ?></td>
+                                            <td data-th="Hospital"> <?= $row3['area'] ?></td>
+                                            <td data-th="Area"> <?= $row2['dayandtime'] ?></td>
+                                            <td data-th="Timing"><?= $row2['fees'] ?></td>
+                                        </tr>
+                                        <?php
+                                        }}
+                                        ?>
                                 </table>
                                 
                                 </div>   
@@ -337,20 +336,24 @@ foreach ($result3 as $row3) {
                     <div class="col-lg-12">
                         <h1>Appointment</h1>
                         <div>
-                        <table style="width: 100%; margin-top: 50px">
-                            <tr >
-                                <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: <br><input type="radio" name="timeSlot" value="12p" value ="12PM" /> </td>
-                            </tr>
-                            <tr><td><input type="radio" name="timeSlot" value="2PM" /></td>
-                            </tr>
-                            <tr><td><input type="radio" name="timeSlot" value="2PM"/ ></td>
-                            </tr>
-                            <tr id="trSeperator"style="height: 10px">
-                            </tr>
-                            <tr>
-                                <td colspan="2"> <button style="width: 100%"> Button </button></td>
-                            </tr>
-                        </table>
+                            <form action="bookappointment.php" method="post">
+                                <table style="width: 100%; margin-top: 50px">
+                                    <tr >
+                                        <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" name="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: <br>
+                                        
+                                        <input type="radio" name="timeSlot" value ="12PM - 1 " /> 12 - 1</td>
+                                    </tr>
+                                    <tr><td><input type="radio" name="timeSlot" value="1 - 2PM" /> 1 - 2 </td>
+                                    </tr>
+                                    <tr><td><input type="radio" name="timeSlot" value="2 -3 PM" />2 - 3</td>
+                                    </tr>
+                                    <tr id="trSeperator"style="height: 10px">
+                                    </tr>
+                                    <tr>
+                                    <td colspan="2"><input type="submit" value="Book" /></td>
+                                    </tr>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>

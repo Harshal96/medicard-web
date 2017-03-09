@@ -4,9 +4,9 @@ $locality = $_POST['geocomplete'];
 $speciality = $_POST['speciality'];
 
 $cluster = Cassandra::cluster()
-		->withContactPoints('192.168.43.219')
+		->withContactPoints('192.168.43.194')
 		->withPort(9042)
-		->withCredentials("ria", "medicard")
+		->withCredentials("medicard", "medicard")
 		->build();
 
 $keyspace = 'test';
