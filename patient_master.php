@@ -6,9 +6,9 @@
 	$username = $_SESSION['userid'];
 	
 	$cluster = Cassandra::cluster()
-			->withContactPoints('192.168.43.194')
+			->withContactPoints('192.168.43.219')
 			->withPort(9042)
-			->withCredentials("medicard", "medicard")
+			->withCredentials("ria", "medicard")
 			->build();
 
 	$keyspace = 'test';
@@ -45,8 +45,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->	
-		<link href='Pagination/styleforpagination.css' rel='stylesheet' type='text/css'>
-        <script src="Pagination/jquery.min.js"></script>
+	<!--<link href='Pagination/styleforpagination.css' rel='stylesheet' type='text/css'>
+        <script src="Pagination/jquery.min.js"></script>-->
     </head>
 	
     <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
@@ -155,8 +155,48 @@
                 </div>
             </div>
         </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Prescriptions</h1><br>
+			<?php
+			$ppid = $row['patient_id'];
+
+			$statement2 = new Cassandra\SimpleStatement("SELECT * from prescriptions where patient_id=".$ppid." ALLOW FILTERING");
+			$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+			$result2    = $future2->get();                      // wait for the result, with an optional timeout
+			
+			foreach ($result2 as $row2) {
+				$docid = $row2['doctor_id']; 
+				$statement3 = new Cassandra\SimpleStatement("SELECT fname, mname, lname from doctor_master where doctor_id = ".$docid." ALLOW FILTERING");
+				$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+				$result3    = $future3->get();                      // wait for the result, with an optional timeout
+
+				foreach ($result3 as $row3) {
+					//echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+				}
+				
+				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+			}
+			?>
+                    <!--<ul id="p_list" class = "paging">
+                    <li> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
+                    <li> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
+                                <span style="float: right"> Andheri, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span > Dr. lalalalla </span>  <span style="float: right"> Bandra, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. blah blah </span>  <span style="float: right"> Versova, Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
+                    <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
+                </ul>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
         <!-- About Section -->
-        <section id="about" class="about-section">
+        <!--<section id="about" class="about-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -172,7 +212,7 @@
                             <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
                             <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
                         </ul>-->
-						<div class="post-wrapper">
+			<!--<div class="post-wrapper">
                                 <div class="loading-overlay">
                                     <div class="overlay-content">Loading.....</div>
                                 </div>
@@ -239,7 +279,7 @@
                             <li> <span> fjwefonfofoerforeifoer- J.K.Money </span>  <span style="float: right"> 05-07-2016 </span> </li>
                             <li> <span> lalalallalalal- Beshwar </span>  <span style="float: right"> 04-17-2016 </span> </li>
                         </ul>-->
-						<div class="post-wrapper">
+			<!--<div class="post-wrapper">
                                 <div class="loading-overlay">
                                     <div class="overlay-content">Loading.....</div>
                                 </div>
@@ -280,7 +320,7 @@
                                         <?php } ?>
                                     </table>
                                     <?php echo $pagination->createLinks(); ?>
-                                    <?php } ?>
+                                    <?php } ?>-->
                                 </div>
                             </div>
                     </div>
