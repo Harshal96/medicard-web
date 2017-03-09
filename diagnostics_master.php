@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <?php
+    session_start();
+    $username = $_SESSION['userid'];
+    
+    $cluster = Cassandra::cluster()
+            ->withContactPoints('192.168.43.194')
+            ->withPort(9042)
+            ->withCredentials("medicard", "medicard")
+            ->build();
+
+    $keyspace = 'test';
+
+    $session = $cluster->connect($keyspace);
+
+    $statement = new Cassandra\SimpleStatement ("SELECT * from diagnostics_master where email = '".$username."' ALLOW FILTERING");
+
+    $future = $session->executeAsync($statement);
+
+    $result = $future->get();
+
+    foreach ($result as $row) {
+        //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['lname'] . "   " . $row['gender'] . "<br>";
+    }
+    ?>
+
 <head>
 
     <meta charset="utf-8">
@@ -159,10 +184,10 @@
                    <!-- <h1>About Section</h1>-->
                    <div class="content">
                         <div style="float:left; width:50%;">
-                            <h3 class="m-a-0 m-b-xs"><b>Very Good Diagnostic Center</b></h3><br> <!-- Set Div As your requirement -->
+                            <h3 class="m-a-0 m-b-xs"><b><?= $row['dname'] ?></b></h3><br> <!-- Set Div As your requirement -->
                             <img src="images/patienttry.jpg" style="height:250px">
                             <br>
-                            <br><br> <p> <b>MediCard Center ID </b>: 258147369 </p> 
+                            <br><br> <p> <b>MediCard Center ID </b>: <?= $row['diagnostics_id'] ?> </p> 
                                        
                             
                         </div>
@@ -170,13 +195,14 @@
                     
                     <div class="content">
                         <div style="float:right; width:50%;"><br>
-                        <br> <b>Phone 1</b> : 9769259947 
-                        <br> <b>Phone 2</b> : 0222834855
-                        <br> <br> <b> Email: </b> lalllala@lalalala.com
-                <br><br> <b> Address: </b> Shop no. 201, Anand Dham-3 <br> Opp. Amboli Rly Crs. <br> Andheri East <br> Mumbai 400069 <br> Maharshtra, India
-                <br><br> <b> Working since: </b> 1996 
-                        <br> <br> <b> Operating Hours: </b> 9:00 - 18:00
-                        <br> <br> <b> Services offered: </b> lalalala
+                        <br> <b>Phone 1</b> : <?= $row['contact'] ?>
+                        <br> <b>Phone 2</b> : <?= $row['contact2'] ?>
+                        <br> <b>Phone 3</b> : <?= $row['contact3'] ?>
+                        <br> <br> <b> Email: </b> <?= $row['email'] ?>
+                <br><br> <b> Address: </b> <?= $row['shopnumber'].' '.$row['society'].'<br>'.$row['locality'].' '.$row['street'].'<br>'.$row['city'].'-'.$row['pin'].'<br>'.$row['state'].' '. $row['country'] ?> 
+                <br><br> <b> Working since: </b> <?= $row['workingsince'] ?>
+                        <br> <br> <b> Operating Hours (starting 9 am): </b> <?= $row['noofhours'] ?>
+                        <br> <br> <b> Services offered: </b> <?= $row['services'] ?>
                         </div>
                     </div>
                     </div>

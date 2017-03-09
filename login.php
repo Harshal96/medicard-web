@@ -53,6 +53,8 @@ $statement = new Cassandra\SimpleStatement ("SELECT email, diagnostics_password 
 
 $future = $session->executeAsync($statement);
 
+$result = $future->get();
+
 foreach ($result as $row) {
 	header("Location: diagnostics_master.php");
 }
