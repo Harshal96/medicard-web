@@ -39,11 +39,12 @@
         $state= ($_POST['state']);
         $street= ($_POST['street']);
         //$photo=
-
-        $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master (doctor_id, aadharcard) VALUES ('".$doctor_id."','".$aadhar_no."')");
+        $dob=$date.'/'.$month.'/'.$year;
+            
+       /* $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master (doctor_id, aadharcard,allergies, area, bloodgroup,city,country,dob,doctor_password) VALUES (".$doctor_id.",'".$aadhar_no."','".$allergies."','".$address."','".$blood_grp."','".$city."','".$country."','".$dob."','".$password."')");*/
         
-      /* $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master (doctor_id, aadharcard, allergies, area, bloodgroup,city,country,dob,doctor_password,email,emergencycontact,fname,gender,lname,locality,mname,mobile,passportnumber,pin,roomnumber,society,state,street) VALUES ('".$doctor_id."','".$aadhar_no."','".$allergies."','".$address."','".$blood_grp."','".$city."','".$country."','".$date."'/'".$month."'/'".$year."','".$password."','".$emailid."','".$e_contact."','".$f_name."','".$gender."','".$l_name."','".$landmark."','".$m_name."','".$phone."','".$passport_no."','".$pincode."','".$degree_date."','".$college."','".$state."','".$street."')");
-*/
+       $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master (doctor_id, aadharcard, allergies, area, bloodgroup,city,country,dob,doctor_password,email,emergencycontact,fname,gender,lname,locality,mname,mobile,passportnumber,pin,roomnumber,society,state,street) VALUES (".$doctor_id.",'".$aadhar_no."','".$allergies."','".$address."','".$blood_grp."','".$city."','".$country."','".$dob."','".$password."','".$emailid."','".$e_contact."','".$f_name."','".$gender."','".$l_name."','".$landmark."','".$m_name."','".$phone."','".$passport_no."','".$pincode."','".$degree_date."','".$college."','".$state."','".$street."')");
+
        $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
       /*  $result    = $future->get();*/                    // wait for the result, with an optional timeout
        /* foreach ($result as $row) {

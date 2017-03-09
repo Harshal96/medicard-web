@@ -28,7 +28,9 @@
         $photo=
         $doctor_name= ($_POST['d_name']);
             
-        $sql=mysqli_query("INSERT INTO diaVALUES ('$name','$emailid','$password','$confirm_pwd','$phone1','$phone2','$phone3','$date','$month','$year','$operating_hrs','$services','$country','$city','$pincode','$address','$landmark','$photo','$doctor_name')");
+        $sql=mysqli_query("INSERT INTO diagnostics_master VALUES ('".$name."','$emailid','$password','$confirm_pwd','$phone1','$phone2','$phone3','$date','$month','$year','$operating_hrs','$services','$country','$city','$pincode','$address','$landmark','$photo','$doctor_name')");
+        
+        $future    = $session->executeAsync($statement);
         
         header("location: add_new_everything.html");
 

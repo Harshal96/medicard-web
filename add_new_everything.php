@@ -335,13 +335,13 @@ ul.tab li a:focus, .active {
 							</label>
 						</section>
                         
-                        <section>
+                        <!--<section>
                             <label class="label">Degree Photo</label>
                             <label for="file" class="input input-file">
                                 <div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
                             </label>
                             <div class="note note-error">File size must be less than 3Mb</div>
-					   </section>
+					   </section>-->
                 </fieldset>
                             
                 <fieldset>
@@ -665,11 +665,11 @@ ul.tab li a:focus, .active {
 						</label>
 					</section>
 					
-					<section class="col col-4">
-							<label class="input">
-								<input type="tel" placeholder="street" id="street" name="street">
-							</label>
-						</section>
+						<section>
+						<label for="file" class="input">
+							<input type="tel" placeholder="street" id="street" name="street">
+						</label>
+					</section>
 					
 					<section>
 						<label class="label"></label>
@@ -680,7 +680,7 @@ ul.tab li a:focus, .active {
 					</section>
 				</fieldset>
                         
-                <fieldset>
+              <!--  <fieldset>
                         <section>
 						<label class="label">Photo</label>
 						<label for="file" class="input input-file">
@@ -688,7 +688,7 @@ ul.tab li a:focus, .active {
 						</label>
 						<div class="note note-error">File size must be less than 3Mb</div>
 					</section>        
-                </fieldset>
+                </fieldset>-->
 				<footer>
 					<button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
@@ -699,12 +699,17 @@ ul.tab li a:focus, .active {
 
 <div id="Patient" class="tabcontent bg-cyan">
   <div class="body body-s">
-			<form action="" class="sky-form" method="post">
-                <input type="hidden" name="type" value="patient">
+			<form action="insert_patient.php" class="sky-form" method="post">
+                <!--<input type="hidden" name="type" value="patient">-->
 				<header align = "center">Add a Patient</header>
 				
 				<fieldset>
                     <div class="row">
+                        <section class="col col-6">
+							<label class="input">
+								<input type="text" placeholder="Patient ID" id="patient_id" name="patient_id">
+							</label>
+						</section>
 						<section class="col col-6">
 							<label class="input">
 								<input type="text" placeholder="First name" id="first_name" name="first_name">
@@ -752,7 +757,7 @@ ul.tab li a:focus, .active {
 				<fieldset>					
 					<section>
 						<label class="select">
-							<select name="gender">
+							<select name="gender" id="gender">
 								<option value="0" selected disabled>Gender</option>
 								<option value="1">Male</option>
 								<option value="2">Female</option>
@@ -778,7 +783,7 @@ ul.tab li a:focus, .active {
 					
                     <section class="col col-4">
 							<label class="select">
-								<select name="date">
+								<select name="date" id="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -818,7 +823,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="month">
+								<select name="month" id="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -884,7 +889,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select name="country">
+								<select name="country" id="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -1168,7 +1173,7 @@ ul.tab li a:focus, .active {
 					</section>
 				</fieldset>
                         
-                <fieldset>
+                <!--<fieldset>
                         <section>
 						<label class="label">Photo</label>
 						<label for="file" class="input input-file">
@@ -1176,9 +1181,9 @@ ul.tab li a:focus, .active {
 						</label>
 						<div class="note note-error">File size must be less than 3Mb</div>
 					</section>        
-                </fieldset>
+                </fieldset>-->
 				<footer>
-					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
 			</form>
 			
