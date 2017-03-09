@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
-	<?php
-		include "insert_new_everything.php";
-	?>
     <head>
-        <link rel = "stylesheet" href = "css/addnew.css">
+        <link rel = "stylesheet" href = "addnew.css">
     </head>
 <style>
 body {
@@ -92,25 +89,26 @@ ul.tab li a:focus, .active {
 
 <div id="Doctor" class="tabcontent bg-cyan">
   <div class="body body-s">
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post" action="insert_doctor.php">
+               <!-- <input type="hidden" name="type" value="doctor"> -->
 				<header align = "center">Add a Doctor</header>
 				
 				<fieldset>
                     <div class="row">
 						<section class="col col-6">
 							<label class="input">
-								<input type="text" placeholder="First name">
+								<input type="text" placeholder="First name" id="first_name" name="first_name">
 							</label>
 						</section>
 						<section class="col col-6">
 							<label class="input">
-								<input type="text" placeholder="Middle name">
+								<input type="text" placeholder="Middle name" id="middle_name" name="middle_name">
 							</label>
 						</section>
                         <div class = "aligncenter">
                             <section class="col col-6">
                                 <label class="input">
-                                    <input type="text" placeholder="Last name">
+                                    <input type="text" placeholder="Last name" id="last_name" name="last_name">
                                 </label>
                             </section>
                         </div>
@@ -119,7 +117,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Email address">
+							<input type="text" placeholder="Email address" id="email" name="email">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -127,7 +125,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
+							<input type="password" placeholder="Password" id="pwd" name="pwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -135,7 +133,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
+							<input type="password" placeholder="Confirm password" id="cpwd" name="cpwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -144,7 +142,7 @@ ul.tab li a:focus, .active {
 				<fieldset>					
 					<section>
 						<label class="select">
-							<select>
+							<select name="gender">
 								<option value="0" selected disabled>Gender</option>
 								<option value="1">Male</option>
 								<option value="2">Female</option>
@@ -157,20 +155,20 @@ ul.tab li a:focus, .active {
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone" name="phone">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Emergency Contact">
+                            <input type="tel" placeholder="Emergency Contact" id="e_contact" name="e_contact">
                         </label>
 				    </section>
 					
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -210,7 +208,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -231,7 +229,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
 				</fieldset>
@@ -239,13 +237,13 @@ ul.tab li a:focus, .active {
                 <fieldset>
                         <section>
 						<label class="input">
-							<input type="text" placeholder="College\University">
+							<input type="text" placeholder="College\University" id="college" name="college">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					   </section>
                         <section>
 							<label class="select">
-								<select>
+								<select name="degree">
 									<option value="0" selected disabled>Degree</option>
 									<option value="1">MBBS</option>
 									<option value="2">February</option>
@@ -267,7 +265,7 @@ ul.tab li a:focus, .active {
                         <label class="label">Degree date</label>
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="degree_date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -307,7 +305,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="degree_month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -328,7 +326,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="degree_year" name="degree_year">
 							</label>
 						</section>
                         
@@ -345,7 +343,7 @@ ul.tab li a:focus, .active {
                         <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Aadhar Card Number">
+							<input type="text" placeholder="Aadhar Card Number" id="aadhar_no" name="aadhar_no">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -353,7 +351,7 @@ ul.tab li a:focus, .active {
                     <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Passport Number">
+							<input type="text" placeholder="Passport Number" id="passport_no" name="passport_no">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -363,7 +361,7 @@ ul.tab li a:focus, .active {
                         <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Blood Group">
+							<input type="text" placeholder="Blood Group" id="blood_grp" name="blood_grp">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -372,7 +370,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Allergies"></textarea>
+							<textarea rows="3" placeholder="Allergies" id="allergies" name="allergies"></textarea>
 						</label>
 					</section>
                 </fieldset>
@@ -381,7 +379,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -639,20 +637,20 @@ ul.tab li a:focus, .active {
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="City">
+								<input type="tel" placeholder="City" id="city" name="city">
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="Post code">
+								<input type="tel" placeholder="Pin code" id="pincode" name="pincode">
 							</label>
 						</section>
 					</div>
 					
 					<section>
 						<label for="file" class="input">
-							<input type="tel" placeholder="Address">
+							<input type="tel" placeholder="Address" id="address" name="address">
 						</label>
 					</section>
 					
@@ -660,7 +658,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Landmarks"></textarea>
+							<textarea rows="3" placeholder="Landmarks" id="landmark" name="landmark"></textarea>
 						</label>
 					</section>
 				</fieldset>
@@ -675,34 +673,35 @@ ul.tab li a:focus, .active {
 					</section>        
                 </fieldset>
 				<footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
 			</form>
 			
-		</div>
+    </div>
 </div>
 
 <div id="Patient" class="tabcontent bg-cyan">
   <div class="body body-s">
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post">
+                <input type="hidden" name="type" value="patient">
 				<header align = "center">Add a Patient</header>
 				
 				<fieldset>
                     <div class="row">
 						<section class="col col-6">
 							<label class="input">
-								<input type="text" placeholder="First name">
+								<input type="text" placeholder="First name" id="first_name" name="first_name">
 							</label>
 						</section>
 						<section class="col col-6">
 							<label class="input">
-								<input type="text" placeholder="Middle name">
+								<input type="text" placeholder="Middle name" id="middle_name" name="middle_name">
 							</label>
 						</section>
                         <div class = "aligncenter">
                             <section class="col col-6">
                                 <label class="input">
-                                    <input type="text" placeholder="Last name">
+                                    <input type="text" placeholder="Last name" id="last_name" name="last_name">
                                 </label>
                             </section>
                         </div>
@@ -711,7 +710,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Email address">
+							<input type="text" placeholder="Email address" id="email" name="email">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -719,7 +718,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
+							<input type="password" placeholder="Password" id="pwd" name="pwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -727,7 +726,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
+							<input type="password" placeholder="Confirm password" id="cpwd" name="cpwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -736,7 +735,7 @@ ul.tab li a:focus, .active {
 				<fieldset>					
 					<section>
 						<label class="select">
-							<select>
+							<select name="gender">
 								<option value="0" selected disabled>Gender</option>
 								<option value="1">Male</option>
 								<option value="2">Female</option>
@@ -749,20 +748,20 @@ ul.tab li a:focus, .active {
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone" name="phone">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Emergency Contact">
+                            <input type="tel" placeholder="Emergency Contact" id="e_contact" name="e_contact">
                         </label>
 				    </section>
 					
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -802,7 +801,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -823,7 +822,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
 				</fieldset>
@@ -832,7 +831,7 @@ ul.tab li a:focus, .active {
                         <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Aadhar Card Number">
+							<input type="text" placeholder="Aadhar Card Number" id="aadhar_no" name="aadhar_no">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -840,7 +839,7 @@ ul.tab li a:focus, .active {
                     <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Passport Number">
+							<input type="text" placeholder="Passport Number" id="passport_no" name="passport_no">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -850,7 +849,7 @@ ul.tab li a:focus, .active {
                         <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Blood Group">
+							<input type="text" placeholder="Blood Group" id="blood_grp" name="blood_grp">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -859,7 +858,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Allergies"></textarea>
+							<textarea rows="3" placeholder="Allergies" id="allergies" name="allergies"></textarea>
 						</label>
 					</section>
                 </fieldset>
@@ -868,7 +867,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -1126,20 +1125,20 @@ ul.tab li a:focus, .active {
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="City">
+								<input type="tel" placeholder="City" id="city" name="city">
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="Post code">
+								<input type="tel" placeholder="Pin code" id="pincode" name="pincode">
 							</label>
 						</section>
 					</div>
 					
 					<section>
 						<label for="file" class="input">
-							<input type="tel" placeholder="Address">
+							<input type="tel" placeholder="Address" id="address" name="address">
 						</label>
 					</section>
 					
@@ -1147,7 +1146,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Landmarks"></textarea>
+							<textarea rows="3" placeholder="Landmarks" id="landmark" name="landmark"></textarea>
 						</label>
 					</section>
 				</fieldset>
@@ -1162,7 +1161,7 @@ ul.tab li a:focus, .active {
 					</section>        
                 </fieldset>
 				<footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
 				</footer>
 			</form>
 			
@@ -1172,20 +1171,21 @@ ul.tab li a:focus, .active {
 <div id="Diagnostic" class="tabcontent bg-cyan">
   <div class="body body-s">
 		
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post">
+                <input type="hidden" name="type" value="diagnostic">
 				<header align = "center">Add a Diagnostic</header>
 				
 				<fieldset>
                     <section>
 						<label class="input">
-							<input type="text" placeholder="Name">
+							<input type="text" placeholder="Name" id="name" name="name">
 						</label>
 					</section>
 
 					<section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Email address">
+							<input type="text" placeholder="Email address" id="email" name="email">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -1193,7 +1193,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
+							<input type="password" placeholder="Password" id="pwd" name="pwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -1201,7 +1201,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
+							<input type="password" placeholder="Confirm password" id="cpwd" name="cpwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -1211,28 +1211,30 @@ ul.tab li a:focus, .active {
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone1" name="phone1">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone2" name="phone2">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone3" name="phone3">
                         </label>
 				    </section>
-				
+                </fieldset>
+                    
+                    <fieldset>
 				    <label class="label">Operating Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -1272,7 +1274,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -1293,20 +1295,22 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
-                                
+                            </fieldset>
+                            
+                                <fieldset>
                         <section>
                             <label class="input">
-                                <input type="text" placeholder="Operating Hours">
+                                <input type="text" placeholder="Operating Hours" id="operating_hrs" name="operating_hrs">
                             </label>
 					    </section>
                                 
                         <section>
                             <label class="label"></label>
                             <label class="textarea">
-                                <textarea rows="3" placeholder="Services"></textarea>
+                                <textarea rows="3" placeholder="Services" id="services" name="services"></textarea>
                             </label>
 					   </section>
 				</fieldset>
@@ -1315,7 +1319,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -1573,20 +1577,20 @@ ul.tab li a:focus, .active {
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="City">
+								<input type="tel" placeholder="City" id="city" name="city">
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="Post code">
+								<input type="tel" placeholder="Pin code" id="pincode" name="pincode">
 							</label>
 						</section>
 					</div>
 					
 					<section>
 						<label for="file" class="input">
-							<input type="tel" placeholder="Address">
+							<input type="tel" placeholder="Address" id="address" name="address">
 						</label>
 					</section>
 					
@@ -1594,7 +1598,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Landmarks"></textarea>
+							<textarea rows="3" placeholder="Landmarks" id="landmark" name="landmark"></textarea>
 						</label>
 					</section>
 				</fieldset>
@@ -1612,12 +1616,12 @@ ul.tab li a:focus, .active {
                 <fieldset>
                         <section>
                             <label for="file" class="input">
-                                <input type="tel" placeholder="Operating Under Doctor (ID or Name)">
+                                <input type="tel" placeholder="Operating Under Doctor (ID or Name)" id="d_name" name="d_name">
                             </label>
 					   </section>
                 </fieldset>
 				<footer>
-					<button type="submit" class="button">Submit</button>
+				    <button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
 				</footer>
 			</form>
 			
@@ -1627,20 +1631,21 @@ ul.tab li a:focus, .active {
 <div id="Hospital" class="tabcontent bg-cyan">
   <div class="body body-s">
 		
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post">
+                <input type="hidden" name="type" value="hospital">
 				<header align = "center">Add a Hospital</header>
 				
 				<fieldset>
                     <section>
 						<label class="input">
-							<input type="text" placeholder="Name">
+							<input type="text" placeholder="Name" id="name" name="name">
 						</label>
 					</section>
 
 					<section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Email address">
+							<input type="text" placeholder="Email address" id="email" name="email">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -1648,7 +1653,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
+							<input type="password" placeholder="Password" id="pwd" name="pwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -1656,7 +1661,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
+							<input type="password" placeholder="Confirm password" id="cpwd" name="cpwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -1666,28 +1671,30 @@ ul.tab li a:focus, .active {
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone1" name="phone1">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone2" name="phone2">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone3" name="phone3">
                         </label>
 				    </section>
-				
+                </fieldset>
+                
+                    <fieldset>
 				    <label class="label">Operating Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -1727,7 +1734,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -1748,20 +1755,22 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
+                            </fieldset>
                                 
+                        <fieldset>        
                         <section>
                             <label class="input">
-                                <input type="text" placeholder="Operating Hours">
+                                <input type="text" placeholder="Operating Hours" id="operating_hrs" name="operating_hrs">
                             </label>
 					    </section>
                                 
                         <section>
                             <label class="label"></label>
                             <label class="textarea">
-                                <textarea rows="3" placeholder="Services"></textarea>
+                                <textarea rows="3" placeholder="Services" id="services" name="services"></textarea>
                             </label>
 					   </section>
 				</fieldset>
@@ -1770,7 +1779,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -2028,20 +2037,20 @@ ul.tab li a:focus, .active {
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="City">
+								<input type="tel" placeholder="City" id="city" name="city">
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="Post code">
+								<input type="tel" placeholder="Pin code" id="pincode" name="pincode">
 							</label>
 						</section>
 					</div>
 					
 					<section>
 						<label for="file" class="input">
-							<input type="tel" placeholder="Address">
+							<input type="tel" placeholder="Address" id="address" name="address">
 						</label>
 					</section>
 					
@@ -2049,7 +2058,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Landmarks"></textarea>
+							<textarea rows="3" placeholder="Landmarks" id="landmark" name="landmark"></textarea>
 						</label>
 					</section>
 				</fieldset>
@@ -2065,7 +2074,7 @@ ul.tab li a:focus, .active {
                 </fieldset>
                         
 				<footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
 				</footer>
 			</form>
 			
@@ -2075,20 +2084,21 @@ ul.tab li a:focus, .active {
 <div id="Pharmacist" class="tabcontent bg-cyan">
   <div class="body body-s">
 		
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post">
+                <input type="hidden" name="type" value="pharmacist">
 				<header align = "center">Add a Pharmacist</header>
 				
 				<fieldset>
                     <section>
 						<label class="input">
-							<input type="text" placeholder="Name">
+							<input type="text" placeholder="Name" id="name" name="name">
 						</label>
 					</section>
 
 					<section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Email address">
+							<input type="text" placeholder="Email address" id="email" name="email">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -2096,7 +2106,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
+							<input type="password" placeholder="Password" id="pwd" name="pwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -2104,7 +2114,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
+							<input type="password" placeholder="Confirm password" id="cpwd" name="cpwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -2114,28 +2124,30 @@ ul.tab li a:focus, .active {
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone1" name="phone1">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone2" name="phone2">
                         </label>
 				    </section>
                     
                     <section>
                         <label class="input">
                             <i class="icon-append icon-phone"></i>
-                            <input type="tel" placeholder="Phone">
+                            <input type="tel" placeholder="Phone" id="phone3" name="phone3">
                         </label>
 				    </section>
-				
+                </fieldset>
+                    
+                    <fieldset>
 				    <label class="label">Operating Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -2175,7 +2187,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -2196,13 +2208,15 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
+                            </fieldset>
                                 
+                                <fieldset>
                         <section>
                             <label class="input">
-                                <input type="text" placeholder="Operating Hours">
+                                <input type="text" placeholder="Operating Hours" id="operating_hrs" name="operating_hrs">
                             </label>
 					    </section>
 				</fieldset>
@@ -2211,7 +2225,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -2469,20 +2483,20 @@ ul.tab li a:focus, .active {
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="City">
+								<input type="tel" placeholder="City" id="city" name="city">
 							</label>
 						</section>
 						
 						<section class="col col-4">
 							<label class="input">
-								<input type="tel" placeholder="Post code">
+								<input type="tel" placeholder="Pin code" id="pincode" name="pincode">
 							</label>
 						</section>
 					</div>
 					
 					<section>
 						<label for="file" class="input">
-							<input type="tel" placeholder="Address">
+							<input type="tel" placeholder="Address" id="address" name="address">
 						</label>
 					</section>
 					
@@ -2490,7 +2504,7 @@ ul.tab li a:focus, .active {
 						<label class="label"></label>
 						<label class="textarea">
 							<i class="icon-append icon-comment"></i>
-							<textarea rows="3" placeholder="Landmarks"></textarea>
+							<textarea rows="3" placeholder="Landmarks" id="landmark" name="landmark"></textarea>
 						</label>
 					</section>
 				</fieldset>
@@ -2507,12 +2521,12 @@ ul.tab li a:focus, .active {
                     
                 <fieldset>
                     <section>
-                        <label class="toggle state-error"><input type="radio" name="radio-toggle"><i></i>Available for Home Delivery</label>
+                        <label class="toggle state-error"><input type="radio" name="radio-toggle" id="home_delivery"><i></i>Available for Home Delivery</label>
                     </section>
                 </fieldset>
                         
 				<footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
 				</footer>
 			</form>
 		</div>
@@ -2520,14 +2534,15 @@ ul.tab li a:focus, .active {
     
 <div id="Admin" class="tabcontent bg-cyan">
   <div class="body body-s">
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post">
+                <input type="hidden" name="type" value="admin">
 				<header align = "center">Add an Admin</header>
 				
 				<fieldset>
 					<section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Email address">
+							<input type="text" placeholder="Email address" id="email" name="email">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -2535,7 +2550,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
+							<input type="password" placeholder="Password" id="pwd" name="pwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -2543,7 +2558,7 @@ ul.tab li a:focus, .active {
 					<section>
 						<label class="input">
 							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
+							<input type="password" placeholder="Confirm password" id="cpwd" name="cpwd">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					</section>
@@ -2551,7 +2566,7 @@ ul.tab li a:focus, .active {
                     <section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
-							<input type="text" placeholder="Patient ID">
+							<input type="text" placeholder="Patient ID" id="patient_id" name="patient_id">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
@@ -2561,7 +2576,7 @@ ul.tab li a:focus, .active {
                         <label class="label">Added On</label>
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -2601,7 +2616,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -2622,7 +2637,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
                 </fieldset>
@@ -2637,7 +2652,7 @@ ul.tab li a:focus, .active {
 					</section>        
                 </fieldset>
                 <footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
 				</footer>
             </form>
     </div>
@@ -2645,34 +2660,35 @@ ul.tab li a:focus, .active {
     
 <div id="Medicine" class="tabcontent bg-cyan">
         <div class="body body-s">
-			<form action="" class="sky-form">
+			<form action="" class="sky-form" method="post">
+                <input type="hidden" name="type" value="medicine">
 				<header align = "center">Add a Medicine</header>
 				
 				<fieldset>
 					<section>
 						<label class="input">
-							<input type="text" placeholder="Name">
+							<input type="text" placeholder="Name" id="name" name="name">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
                     
                     <section>
 						<label class="input">
-							<input type="text" placeholder="Manufacturer">
+							<input type="text" placeholder="Manufacturer" id="manufacturer" name="manufacturer">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
                     
                     <section>
 						<label class="input">
-							<input type="text" placeholder="Price">
+							<input type="text" placeholder="Price" id="price" name="price">
 							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
 						</label>
 					</section>
                     
                     <section>
 							<label class="select">
-								<select>
+								<select name="category">
 									<option value="0" selected disabled>Category</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -2696,7 +2712,7 @@ ul.tab li a:focus, .active {
                         <label class="label">Manufactured Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -2736,7 +2752,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select>
+								<select name="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -2757,12 +2773,12 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="input">
-								<input type="text" placeholder="Year">
+								<input type="text" placeholder="Year" id="year" name="year">
 							</label>
 						</section>
                 </fieldset>
              <footer>
-					<button type="submit" class="button">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
 				</footer>
             </form>
     </div>
