@@ -23,6 +23,8 @@
 
     foreach ($result as $row) {
         //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['lname'] . "   " . $row['gender'] . "<br>";
+        
+        
     }
     ?>
 
@@ -111,7 +113,7 @@
                 <div class="qq-dialog-buttons">
                     <button type="button" class="qq-cancel-button-selector">Cancel</button>
                     <button type="button" class="qq-ok-button-selector">Ok</button>
-                </div>
+                </div>ree
             </dialog>
         </div>
     </script>
@@ -188,7 +190,7 @@
                             <img src="images/patienttry.jpg" style="height:250px">
                             <br>
                             <br><br> <p> <b>MediCard Center ID </b>: <?= $row['diagnostics_id'] ?> </p> 
-                                       
+                                    
                             
                         </div>
                     </div>
@@ -218,7 +220,8 @@
                     <h1>Patient Search - Add report</h1><br>
                 </div>
                 <div  align="center">
-                    <input name="search_text" type="text" class="form-control" id="search_text" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+                    <!--<input name="search_text" type="text" class="form-control" id="search_text" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+                    -->
                     <div>  
                     <ul id = "p_list" class = "paging"> 
                         <div id="result"></div>
@@ -226,12 +229,9 @@
                     </div>
                 </div>
                 <div>
-                                <!-- Fine Uploader DOM Element
-                ====================================================================== -->
+				<!--	
                 <div id="fine-uploader-manual-trigger"></div>
 
-                <!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
-                ====================================================================== -->
                 <script>
                     var manualUploader = new qq.FineUploader({
                         element: document.getElementById('fine-uploader-manual-trigger'),
@@ -254,6 +254,13 @@
                     });
                 </script>
                 </div>
+                -->
+                <form method="POST" action="upload_report.php" enctype="multipart/form-data">
+					<input type="file" name="report_form" id="report_form">
+					<input type="submit" name="submit_image" value="Upload" id="submit_image">
+					<input name="search_pid" type="text" class="form-control" id="search_pid" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+                    <input name="d_id" type="hidden" value="<?= $row['diagnostics_id'] ?>" id="d_id">
+				</form>
             </div>
         </div>
     </section>
@@ -266,16 +273,16 @@
                         <div>
                 <ul id="p_list" class = "paging">
                     <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b>Test Name</b></span> <span style="float: left; width:40%"><b>Cost</b></span><span style="float: left; width:20%"><b>Specifications</b></span></li>
-<?php
-$statement2 = new Cassandra\SimpleStatement("SELECT * from diagnostics_services where diagnostics_id=".$row['diagnostics_id']." ALLOW FILTERING;");
-$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
-$result2    = $future2->get();  
-foreach ($result2 as $row2 ) {
-?> 
-<li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> <?= $row2['test'] ?></span> <span style="float: left; width:40%"><?= $row2['cost'] ?></span><span style="float: left; width:20%"><?= $row2['dept'] ?></span></li>
-<?php
-}
-?>
+                    <?php
+                    $statement2 = new Cassandra\SimpleStatement("SELECT * from diagnostics_services where diagnostics_id=".$row['diagnostics_id']." ALLOW FILTERING;");
+                    $future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+                    $result2    = $future2->get();  
+                    foreach ($result2 as $row2 ) {
+                    ?> 
+                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> <?= $row2['test'] ?></span> <span style="float: left; width:40%"><?= $row2['cost'] ?></span><span style="float: left; width:20%"><?= $row2['dept'] ?></span></li>
+                    <?php
+                    }
+                    ?>
                 </ul>
             </div>
                 </div>
