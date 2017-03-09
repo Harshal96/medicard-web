@@ -1193,11 +1193,17 @@ ul.tab li a:focus, .active {
 <div id="Diagnostic" class="tabcontent bg-cyan">
   <div class="body body-s">
 		
-			<form action="" class="sky-form" method="post">
-                <input type="hidden" name="type" value="diagnostic">
+			<form action="insert_diagnostic.php" class="sky-form" method="post">
+                <!--<input type="hidden" name="type" value="diagnostic">-->
 				<header align = "center">Add a Diagnostic</header>
 				
+                
 				<fieldset>
+                    <section>
+							<label class="input">
+								<input type="text" placeholder="Diagnostic ID" id="diagnostic_id" name="diagnostic_id">
+							</label>
+						</section>
                     <section>
 						<label class="input">
 							<input type="text" placeholder="Name" id="name" name="name">
@@ -1256,7 +1262,7 @@ ul.tab li a:focus, .active {
 				    <label class="label">Operating Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select name="date">
+								<select name="date" id="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -1296,7 +1302,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="month">
+								<select name="month" id="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -1341,7 +1347,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select name="country">
+								<select name="country" id="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -1623,9 +1629,10 @@ ul.tab li a:focus, .active {
 							<textarea rows="3" placeholder="Landmarks" id="landmark" name="landmark"></textarea>
 						</label>
 					</section>
+                            
 				</fieldset>
                         
-                <fieldset>
+               <!-- <fieldset>
                         <section>
 						<label class="label">Photo</label>
 						<label for="file" class="input input-file">
@@ -1633,7 +1640,7 @@ ul.tab li a:focus, .active {
 						</label>
 						<div class="note note-error">File size must be less than 3Mb</div>
 					</section>        
-                </fieldset>
+                </fieldset>-->
                         
                 <fieldset>
                         <section>
@@ -1641,9 +1648,15 @@ ul.tab li a:focus, .active {
                                 <input type="tel" placeholder="Operating Under Doctor (ID or Name)" id="d_name" name="d_name">
                             </label>
 					   </section>
+                    
+                            <section class="col col-6">
+							<label class="input">
+								<input type="text" placeholder="Doctor ID" id="doctor_id" name="doctor_id">
+							</label>
+						</section>
                 </fieldset>
 				<footer>
-				    <button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
+				    <button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
 			</form>
 			
@@ -1653,11 +1666,16 @@ ul.tab li a:focus, .active {
 <div id="Hospital" class="tabcontent bg-cyan">
   <div class="body body-s">
 		
-			<form action="" class="sky-form" method="post">
-                <input type="hidden" name="type" value="hospital">
+			<form action="insert_hospital.php" class="sky-form" method="post">
+                <!--<input type="hidden" name="type" value="hospital">-->
 				<header align = "center">Add a Hospital</header>
 				
 				<fieldset>
+                    <section>
+							<label class="input">
+								<input type="text" placeholder="Hospital ID" id="hnc_id" name="hnc_id">
+							</label>
+						</section>
                     <section>
 						<label class="input">
 							<input type="text" placeholder="Name" id="name" name="name">
@@ -1716,7 +1734,7 @@ ul.tab li a:focus, .active {
 				    <label class="label">Operating Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select name="date">
+								<select name="date" id="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -1756,7 +1774,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="month">
+								<select name="month" id="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -1801,7 +1819,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select name="country">
+								<select name="country" id="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -2096,7 +2114,7 @@ ul.tab li a:focus, .active {
                 </fieldset>
                         
 				<footer>
-					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
 			</form>
 			
@@ -2106,11 +2124,16 @@ ul.tab li a:focus, .active {
 <div id="Pharmacist" class="tabcontent bg-cyan">
   <div class="body body-s">
 		
-			<form action="" class="sky-form" method="post">
-                <input type="hidden" name="type" value="pharmacist">
+			<form action="insert_pharmacist.php" class="sky-form" method="post">
+                <!--<input type="hidden" name="type" value="pharmacist">-->
 				<header align = "center">Add a Pharmacist</header>
 				
 				<fieldset>
+                    <section>
+							<label class="input">
+								<input type="text" placeholder="Pharmacist ID" id="pharm_id" name="pharm_id">
+							</label>
+						</section>
                     <section>
 						<label class="input">
 							<input type="text" placeholder="Name" id="name" name="name">
@@ -2169,7 +2192,7 @@ ul.tab li a:focus, .active {
 				    <label class="label">Operating Since</label>
                     <section class="col col-4">
 							<label class="select">
-								<select name="date">
+								<select name="date" id="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -2209,7 +2232,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="month">
+								<select name="month" id="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -2247,7 +2270,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select name="country">
+								<select name="country" id="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>
@@ -2548,7 +2571,7 @@ ul.tab li a:focus, .active {
                 </fieldset>
                         
 				<footer>
-					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
 			</form>
 		</div>
@@ -2556,12 +2579,17 @@ ul.tab li a:focus, .active {
     
 <div id="Admin" class="tabcontent bg-cyan">
   <div class="body body-s">
-			<form action="" class="sky-form" method="post">
-                <input type="hidden" name="type" value="admin">
+			<form action="insert_admin.php" class="sky-form" method="post">
+               <!-- <input type="hidden" name="type" value="admin">-->
 				<header align = "center">Add an Admin</header>
 				
 				<fieldset>
 					<section>
+                        <section>
+							<label class="input">
+								<input type="text" placeholder="Admin ID" id="admin_id" name="admin_id">
+							</label>
+						</section>
 						<label class="input">
 							<i class="icon-append icon-envelope-alt"></i>
 							<input type="text" placeholder="Email address" id="email" name="email">
@@ -2598,7 +2626,7 @@ ul.tab li a:focus, .active {
                         <label class="label">Added On</label>
                     <section class="col col-4">
 							<label class="select">
-								<select name="date">
+								<select name="date" id="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -2638,7 +2666,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="month">
+								<select name="month" id="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -2674,13 +2702,13 @@ ul.tab li a:focus, .active {
 					</section>        
                 </fieldset>
                 <footer>
-					<button type="submit" class="button" id="submit" name="submit" onsubmit="insert_new.php">Submit</button>
+					<button type="submit" class="button" id="submit" name="submit">Submit</button>
 				</footer>
             </form>
     </div>
 </div>
     
-<div id="Medicine" class="tabcontent bg-cyan">
+<!--<div id="Medicine" class="tabcontent bg-cyan">
         <div class="body body-s">
 			<form action="" class="sky-form" method="post">
                 <input type="hidden" name="type" value="medicine">
@@ -2804,7 +2832,7 @@ ul.tab li a:focus, .active {
 				</footer>
             </form>
     </div>
-</div>
+</div>-->
     
 <script>
 function openCity(evt, cityName) {

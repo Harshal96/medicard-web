@@ -8,6 +8,8 @@
 		$keyspace  = 'test';
 		$session   = $cluster->connect($keyspace);
 
+        $doctor_id=($_POST['doctor_id']);
+        $diagnostic_id=($_POST['diagnostic_id']);
         $name= ($_POST['name']);
         $emailid= ($_POST['email']);
         $password= ($_POST['pwd']);
@@ -25,13 +27,16 @@
         $pincode= ($_POST['pincode']);
         $address= ($_POST['address']);
         $landmark= ($_POST['landmark']);
-        $photo=
+        //$photo=
         $doctor_name= ($_POST['d_name']);
-            
-        $sql=mysqli_query("INSERT INTO diagnostics_master VALUES ('".$name."','$emailid','$password','$confirm_pwd','$phone1','$phone2','$phone3','$date','$month','$year','$operating_hrs','$services','$country','$city','$pincode','$address','$landmark','$photo','$doctor_name')");
+        $workingsince=$date.'/'.$month.'/'.$year;
+         
+        $statement=new Cassandra\SimpleStatement("INSERT INTO diagnostics_master(diagnostics_id, Dname, Contact, Contact2, Contact3, Email, WorkingSince, ShopNumber, Society, Street, Locality, Area, City, pin, state, country, Services) values (".$diagnostic_id.",'".$name."','".$phone1."','".$phone2."','".$phone3."','".$emailid."','".$workingsince."','','','','".$address."','".$landmark."','".$city."','".$pincode."','','".$country."','".$services."','".$operating_hrs."')");
+
+        /*$statement=new Cassandra\SimpleStatement("INSERT INTO diagnostics_master(diagnostics_id, diagnostics_Password, Dname, Contact, Contact2, Contact3, Email, WorkingSince, ShopNumber, Society, Street, Locality, Area, City, pin, state, country, Services, NoOfHours, doctor_id) VALUES ('".$diagnostic_id."','".$password."','".$name."','".$phone1."','".$phone2."','".$phone3."','".$emailid."','".$workingsince."','','','','".$address."','".$landmark."','".$city."','".$pincode."','','".$country."','".$services."','".$operating_hrs."','".$doctor_id."')");*/
         
         $future    = $session->executeAsync($statement);
         
-        header("location: add_new_everything.html");
+        header("location: add_new_everything.php");
 
 ?>
