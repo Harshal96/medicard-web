@@ -8,9 +8,9 @@ $patientemail = $_SESSION['searchpid'];
 
 //use Cassandra;
 $cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.219')
+               ->withContactPoints('192.168.43.194')
                ->withPort(9042)
-               ->withCredentials("ria", "medicard")
+               ->withCredentials("medicard", "medicard")
                ->build();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);        
@@ -242,13 +242,11 @@ foreach ($result as $row) {
                 write=document.getElementById('MedIncr');
                 function addMed()
                 {
-                write.innerHTML+="<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"m-a-n\" value=\"morning\"style=\"display:inline;\">Morning</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"afternoon\"style=\"display:inline\">Afternoon</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"night\"style=\"display:inline\">Night</input><button onclick=\"removeMed(this);\" style=\"display:inline;background-color: #ff6666\">X</button></span>";
+                write.innerHTML+="<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"m-a-n\" value=\"morning\"style=\"display:inline;\">Morning</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"afternoon\"style=\"display:inline\">Afternoon</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"night\"style=\"display:inline\">Night</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #99dfff\">X</button></span>";
                 med=med + 1;
                 }
-                function removeMed(elt){
-                    while (elt && (elt.tagName != "SPAN" || !elt.id))
-                    elt = elt.parentNode;
-                    var elem = document.getElementById(elt);
+                function removeMed(idSent){
+                    var elem = document.getElementById(idSent);
                     elem.parentNode.removeChild(elem);
                     return false;
                 }
