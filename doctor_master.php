@@ -1,5 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+  
+  <?php
+  session_start();
+  $username = $_SESSION['userid'];
+  
+  $cluster = Cassandra::cluster()
+      ->withContactPoints('192.168.43.194')
+      ->withPort(9042)
+      ->withCredentials("medicard", "medicard")
+      ->build();
+
+  $keyspace = 'test';
+
+  $session = $cluster->connect($keyspace);
+
+  $statement = new Cassandra\SimpleStatement ("SELECT * from doctor_master where email = '".$username."' ALLOW FILTERING");
+
+  $future = $session->executeAsync($statement);
+
+  $result = $future->get();
+
+  foreach ($result as $row) {
+    //echo $row['patient_id'] . " " . $row['fname'] . " " . $row['lname'] . " " . $row['gender'] . "<br>";
+  }
+  ?>
 
 <head>
 <style type="text/css">
@@ -172,10 +197,10 @@
                    <!-- <h1>About Section</h1>-->
                    <div class="content">
                         <div style="float:left; width:50%;">
-                            <h3 class="m-a-0 m-b-xs"><b>Dr. Ria Maheshwari</b></h3><br> <!-- Set Div As your requirement -->
+                            <h3 class="m-a-0 m-b-xs"><b><?= $row['fname'].' '.$row['mname'].' '.$row['lname']; ?></b></h3><br> <!-- Set Div As your requirement -->
                             <img src="images/patienttry.jpg" style="height:250px">
                             <br>
-                            <br><br> <p> <b>MediCard Doctor ID </b>: 258147369 </p> 
+                            <br><br> <p> <b>MediCard Doctor ID </b>: <?= $row['doctor_id'] ?> </p> 
                                        
                             
                         </div>
@@ -183,11 +208,11 @@
                     
                     <div class="content">
                         <div style="float:right; width:50%;"><br>
-                        <br> <b>Phone</b> : 9769259947 
-                        <br> <br> <b> Email: </b> lalllala@lalalala.com
-                <br><br> <b> DOB: </b> 25-07-1996
-                <br><br> <b> Sex: </b> Female <br><br>
-                             <b> Address: </b> 201, Anand Dham-3 <br> Opp. Amboli Rly Crs. <br> Andheri East <br> Mumbai 400069 <br> Maharshtra, India
+                        <br> <b>Phone</b> : <?= $row['mobile'] ?>
+                        <br> <br> <b> Email: </b> <?= $row['email'] ?>
+                <br><br> <b> DOB: </b> <?= $row['dob'] ?>
+                <br><br> <b> Sex: </b> <?= $row['gender'] ?> <br><br>
+                             <b> Address: </b> <?= $row['roomnumber'].' '.$row['society'].'<br>'.$row['locality'].' '.$row['street'].'<br>'.$row['city'].'-'.$row['pin'].'<br>'.$row['state'].' '. $row['country'] ?>
                             
                         </div>
                     </div>
