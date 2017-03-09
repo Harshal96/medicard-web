@@ -195,112 +195,15 @@
         </div>
     </section>
 
-        <!-- About Section -->
-        <!--<section id="about" class="about-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Prescriptions</h1>
-                        <br>
-                        <!--<ul id="p_list" class = "paging">
-                            <li onclick="p_div_show()"> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
-                            <li onclick="p_div_show()"> <span > Dr. Maheshwari - Amazing Diagnostics Center </span>  
-                                <span style="float: right"> Andheri, Mumbai &nbsp 10-07-2016</span> 
-                            </li>
-                            <li onclick="p_div_show()"> <span > Dr. lalalalla </span>  <span style="float: right"> Bandra, Mumbai &nbsp 10-07-2016</span> </li>
-                            <li> <span> Dr. blah blah </span>  <span style="float: right"> Versova, Mumbai &nbsp 10-07-2016</span> </li>
-                            <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
-                            <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
-                        </ul>-->
-			<!--<div class="post-wrapper">
-                                <div class="loading-overlay">
-                                    <div class="overlay-content">Loading.....</div>
-                                </div>
-                                <div id="posts_content">
-                                    <?php
-                                        //Include pagination class file
-                                        include('Pagination/Pagination.php');
-                                        
-                                        //Include database configuration file
-                                        include('Pagination/dbConfig.php');
-                                        
-                                        $limit = 5;
-                                        
-                                        //get number of rows
-                                        $queryNum = $db->query("SELECT COUNT(*) as postNum FROM patient_master");
-                                        $resultNum = $queryNum->fetch_assoc();
-                                        $rowCount = $resultNum['postNum'];
-                                        
-                                        //initialize pagination class
-                                        $pagConfig = array('baseURL'=>'Pagination/getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
-                                        $pagination =  new Pagination($pagConfig);
-                                        
-                                        //get rows
-                                        $query = $db->query("SELECT * FROM patient_master ORDER BY patient_id DESC LIMIT $limit");
-                                        
-                                        if($query->num_rows > 0){ ?>
-                                    <table class="rwd-table">
-                                        <tr>
-                                            <th>Movie Title</th>
-                                            <th>Genre</th>
-                                            <th>Year</th>
-                                            <th>Gross</th>
-                                        </tr>
-                                        <?php
-                                            while($row = $query->fetch_assoc()){ 
-                                                $postID = $row['patient_id'];
-                                            ?>
-                                        <tr onclick="p_div_show()">
-                                            <a href="javascript:void(0);">
-                                                <h2><?php echo $row["Fname"]; ?></h2>
-                                            </a>
-                                        </tr>
-                                        <?php } ?>
-                                    </table>
-                                    <?php echo $pagination->createLinks(); ?>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+     
         <!-- Services Section -->
         <section id="services" class="services-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>Reports</h1>
-                        <!--<ul id="r_list" class = "paging reports">
-                            <li onclick="r_div_show()"> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
-                            <li onclick="r_div_show()"> <span > Amazing Diagnostics Center - Andheri (East), Mumbai </span> <span style="float: right">10-07-2016</span> </li>
-                            <li onclick="r_div_show()"> <span> Jnwndniwhd - feiuhfiuhf </span>  <span style="float: right"> 20-11-2016  </span> </li>
-                            <li> <span> ifeortgjorege- blah blah </span>  <span style="float: right"> 10-09-2016 </span> </li>
-                            <li> <span> fjwefonfofoerforeifoer- J.K.Money </span>  <span style="float: right"> 05-07-2016 </span> </li>
-                            <li> <span> lalalallalalal- Beshwar </span>  <span style="float: right"> 04-17-2016 </span> </li>
-                        </ul>-->
-			<!--<div class="post-wrapper">
-                                <div class="loading-overlay">
-                                    <div class="overlay-content">Loading.....</div>
-                                </div>
-                                <div id="posts_content">
-                                    <?php
-                                        
-                                        $limit = 5;
-                                        
-                                        //get number of rows
-                                        $queryNum = $db->query("SELECT COUNT(*) as postNum FROM patient_master");
-                                        $resultNum = $queryNum->fetch_assoc();
-                                        $rowCount = $resultNum['postNum'];
-                                        
-                                        //initialize pagination class
-                                        $pagConfig = array('baseURL'=>'Pagination/getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
-                                        $pagination =  new Pagination($pagConfig);
-                                        
-                                        //get rows
-                                        $query = $db->query("SELECT * FROM patient_master ORDER BY patient_id DESC LIMIT $limit");
-                                        
-                                        if($query->num_rows > 0){ ?>
+                        
+
                                     <table class="rwd-table">
                                         <tr>
                                             <th>Movie Title</th>
@@ -308,19 +211,10 @@
                                             <th>Year</th>
                                             <th>Gross</th>
                                         </tr>
-                                        <?php
-                                            while($row = $query->fetch_assoc()){ 
-                                                $postID = $row['patient_id'];
-                                            ?>
-                                        <tr onclick="p_div_show()">
-                                            <a href="javascript:void(0);">
-                                                <h2><?php echo $row["Fname"]; ?></h2>
-                                            </a>
-                                        </tr>
-                                        <?php } ?>
+                                        
+                                        
                                     </table>
-                                    <?php echo $pagination->createLinks(); ?>
-                                    <?php } ?>-->
+                                  
                                 </div>
                             </div>
                     </div>
@@ -331,6 +225,7 @@
         <section id="contact" class="contact-section">
             <div class="container">
                 <div class="row">
+                <h1>Search</h1>
 					<form>
 					  <input id="geocomplete" type="text" placeholder="Type in an address" size="40" />
 					  <input list="browsers" name="browser">
