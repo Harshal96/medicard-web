@@ -174,7 +174,6 @@ foreach ($result2 as $row2 ) {
 <?php
 }
 ?>
-
                 </ul>
             </div>
                 </div>
