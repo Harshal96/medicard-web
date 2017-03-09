@@ -162,7 +162,7 @@
                         <a href="#page-top">About</a>
                     </li>
                     <li>
-                        <a href="#about">Patient Seacrh</a>
+                        <a href="#about">Patient Search</a>
                     </li>
                     <li>
                         <a href="#services">Services</a>

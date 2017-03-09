@@ -197,14 +197,26 @@
 
                                     <table class="rwd-table">
                                         <tr>
-                                            <th>Report description</th>
+											<th>Description</th>
                                             <th>File</th>
                                             <th>Time</th>
                                         </tr>
-                                        
-                                        
-                                    </table>
+											<?php
+											
+											$r_statement = new Cassandra\SimpleStatement ("SELECT * from reports where p_id = ".$row['patient_id']." ALLOW FILTERING");
 
+											$r_future = $session->executeAsync($r_statement);
+
+											$r_result = $r_future->get();
+
+											foreach ($r_result as $r_row) 
+											{
+												echo ('<tr>');
+												echo ('<th>'.$r_row['description'] . '</th>' . '<th>' . '<a href="download_report.php?r_id='.$r_row['r_id'] . '">REPORT LINK</a></th>' .  '<th>' .  $r_row['time']  . '</th>');
+												echo ('</tr>');
+											}
+											?>
+                                    </table>
                                 </div>
                             </div>
                     </div>
