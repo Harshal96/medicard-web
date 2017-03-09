@@ -97,6 +97,11 @@ ul.tab li a:focus, .active {
                     <div class="row">
 						<section class="col col-6">
 							<label class="input">
+								<input type="text" placeholder="Doctor ID" id="doctor_id" name="doctor_id">
+							</label>
+						</section>
+						<section class="col col-6">
+							<label class="input">
 								<input type="text" placeholder="First name" id="first_name" name="first_name">
 							</label>
 						</section>
@@ -643,6 +648,12 @@ ul.tab li a:focus, .active {
 						
 						<section class="col col-4">
 							<label class="input">
+								<input type="tel" placeholder="state" id="state" name="state">
+							</label>
+						</section>
+						
+						<section class="col col-4">
+							<label class="input">
 								<input type="tel" placeholder="Pin code" id="pincode" name="pincode">
 							</label>
 						</section>
@@ -653,6 +664,12 @@ ul.tab li a:focus, .active {
 							<input type="tel" placeholder="Address" id="address" name="address">
 						</label>
 					</section>
+					
+					<section class="col col-4">
+							<label class="input">
+								<input type="tel" placeholder="street" id="street" name="street">
+							</label>
+						</section>
 					
 					<section>
 						<label class="label"></label>

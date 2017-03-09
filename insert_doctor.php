@@ -1,13 +1,15 @@
 <?php 
 
-$cluster = Cassandra::cluster()
-               ->withContactPoints('192.168.43.194')
-               ->withPort(9042)
-               ->withCredentials("medicard", "medicard")
-               ->build();
-$keyspace  = 'test';
-$session   = $cluster->connect($keyspace);      
-$f_name=($_POST['first_name']);
+		$cluster = Cassandra::cluster()
+					   ->withContactPoints('192.168.43.194')
+					   ->withPort(9042)
+					   ->withCredentials("medicard", "medicard")
+					   ->build();
+		$keyspace  = 'test';
+		$session   = $cluster->connect($keyspace
+		
+		$doctor_id=($_POST['doctor_id'])
+		$f_name=($_POST['first_name']);
         $m_name= ($_POST['middle_name']);
         $l_name= ($_POST['last_name']);
         $emailid= ($_POST['email']);
@@ -34,9 +36,11 @@ $f_name=($_POST['first_name']);
         $pincode= ($_POST['pincode']);
         $address= ($_POST['address']);
         $landmark= ($_POST['landmark']);
+        $state= ($_POST['state']);
+        $street= ($_POST['street']);
         //$photo=
         
-        $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master VALUES ('".$f_name."','".$m_name."','".$l_name."','".$emailid."','".$password."','".$confirm_pwd."','".$gender."','".$phone."','".$e_contact."','".$date."','".$month."','".$year."','".$college."','".$degree."','".$degree_date."','".$degree_month."','".$degree_year."','".$aadhar_no."','".$passport_no."','".$blood_grp."','".$allergies."','".$country."','".$city."','".$pincode."','".$address."','".$landmark."')");
+        $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master(doctor_id, aadharcard, allergies, area, bloodgroup, city, country, dob, doctor_password, email, emergencycontact, fname, gender, lname, locality, mname, mobile, passportnumber, pin, roomnumber, society, state, street) VALUES ('".$doctor_id."','".$aadhar_no."','".$allergies."','".$address."','".$blood_grp."','".$city."','".$country."','".$date."'/'".$month."'/'".$year."','".$password."','".$emailid."','".$e_contact."','".$f_name."','".$gender."','".$l_name."','".$landmark."','".$m_name."','".$phone."','".$passport_no."','".$pincode."','".$degree_date."','".$college."','".$state."','".$street."')");
 
         $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
         $result    = $future->get();                      // wait for the result, with an optional timeout
