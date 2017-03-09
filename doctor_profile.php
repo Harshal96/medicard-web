@@ -336,7 +336,7 @@ foreach ($result as $row) {
                     <div class="col-lg-12">
                         <h1>Appointment</h1>
                         <div>
-                            <form action="bookappointment.php" method="post">
+                            <form action="" method="post">
                                 <table style="width: 100%; margin-top: 50px">
                                     <tr >
                                         <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" name="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: <br>

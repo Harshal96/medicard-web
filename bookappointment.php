@@ -11,7 +11,7 @@ $keyspace = 'test';
 
 $session = $cluster->connect($keyspace);
 
-$statement = new Cassandra\SimpleStatement ("SELECT email, patient_password from patient_master where email = '".$username."' and patient_password = '".$password."' ALLOW FILTERING");
+$statement=new Cassandra\SimpleStatement("INSERT INTO appointment_master(app_id, doctor_id, patient_id, date) values (".$app_id.",'".$doctor_id."','".$patient_id."','".$date."')");
 
 $future = $session->executeAsync($statement);
 
