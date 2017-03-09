@@ -3,7 +3,7 @@
 
 <?php
 session_start();
-
+$doctor_email_here = $_SESSION['userid'];
 $patientemail = $_SESSION['searchpid'];
 
 //use Cassandra;
@@ -148,7 +148,7 @@ foreach ($result as $row) {
 				$result3    = $future3->get();                      // wait for the result, with an optional timeout
 
 				foreach ($result3 as $row3) {
-echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+//echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
  }
 				
 				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
@@ -211,16 +211,46 @@ echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>"
     </section>
 
     <section id="writeAPrescription" class="about-section">
+    <?php 
+    $statement4 = new Cassandra\SimpleStatement("SELECT doctor_id from doctor_master where email = '".$doctor_email_here."' ALLOW FILTERING");
+                    //$doctor_id_here = '899';
+                    $future4 = $session->executeAsync($statement4);  // fully asynchronous and easy parallel execution
+                    $result4 = $future4->get();                      // wait for the result, with an optional timeout
+                    foreach ($result4 as $row4) {
+                        $doctor_id_here = $row4['doctor_id'];
+                    }
+    ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Write a Prescription</h1><br>
 		    <form action = "" method="post">
-			<input type="label" id="doctor-id">
-			<input type="label" id="patient-id">
-                    	<input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Enter Symptoms" size="28" style="width: 50%" />  
-			<input name="detected_disease" type="text" class="form-control" id="detected_disease" placeholder="Enter Detected Disease" size="28" style="width: 50%" />
-			<input name="Medicines" type="text" class="form-control" id="Medicines" placeholder="Enter Medicines" size="28" style="width: 50%" />
+			<input type="label" id="doctor-id" value="Doctor ID: <?= $doctor_id_here ?>" disabled> 
+			<input type="label" id="patient-id" value="Patient ID: <?= $row['patient_id']?>" disabled>
+                    	<input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Symptoms" size="28" style="width: 50%" />  
+			<input name="detected_disease" type="text" class="form-control" id="detected_disease" placeholder="Detected Disease" size="28" style="width: 50%" />
+			<button onclick="addMed(); return false;" class="form-control"    style="width: 50%;background-color: #99dfff">Add Medicine Prescription</button>
+            <!--<input name="Medicines" type="text" class="form-control" id="Medicines" placeholder="Medicines" size="28" style="width: 50%" />-->
+            <div id ="MedIncr"></div>
+            <script type="text/javascript">
+                var med=1;
+                write=document.getElementById('MedIncr');
+                function addMed()
+                {
+                write.innerHTML+="<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"m-a-n\" value=\"morning\"style=\"display:inline;\">Morning</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"afternoon\"style=\"display:inline\">Afternoon</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"night\"style=\"display:inline\">Night</input><button onclick=\"removeMed(this);\" style=\"display:inline;background-color: #ff6666\">X</button></span>";
+                med=med + 1;
+                }
+                function removeMed(elt){
+                    while (elt && (elt.tagName != "SPAN" || !elt.id))
+                    elt = elt.parentNode;
+                    var elem = document.getElementById(elt);
+                    elem.parentNode.removeChild(elem);
+                    return false;
+                }
+            </script>
+            
+
+
 			<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />
 			<input type="submit" value="Save" />
 		    </form>
