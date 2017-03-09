@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel = "stylesheet" href = "addnew.css">
+        <link rel = "stylesheet" href = "css/addnew.css">
     </head>
 <style>
 body {
@@ -89,7 +89,7 @@ ul.tab li a:focus, .active {
 
 <div id="Doctor" class="tabcontent bg-cyan">
   <div class="body body-s">
-			<form action="" class="sky-form" method="post" action="insert_doctor.php">
+			<form class="sky-form" method="post" action="insert_doctor.php">
                <!-- <input type="hidden" name="type" value="doctor"> -->
 				<header align = "center">Add a Doctor</header>
 				
@@ -147,7 +147,7 @@ ul.tab li a:focus, .active {
 				<fieldset>					
 					<section>
 						<label class="select">
-							<select name="gender">
+							<select name="gender_d">
 								<option value="0" selected disabled>Gender</option>
 								<option value="1">Male</option>
 								<option value="2">Female</option>
@@ -173,7 +173,7 @@ ul.tab li a:focus, .active {
 					
                     <section class="col col-4">
 							<label class="select">
-								<select name="date">
+								<select name="date" id="date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -213,7 +213,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="month">
+								<select name="month" id="month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -248,7 +248,7 @@ ul.tab li a:focus, .active {
 					   </section>
                         <section>
 							<label class="select">
-								<select name="degree">
+								<select name="degree" id="degree">
 									<option value="0" selected disabled>Degree</option>
 									<option value="1">MBBS</option>
 									<option value="2">February</option>
@@ -270,7 +270,7 @@ ul.tab li a:focus, .active {
                         <label class="label">Degree date</label>
                         <section class="col col-4">
 							<label class="select">
-								<select name="degree_date">
+								<select name="degree_date" id="degree_date">
 									<option value="0" selected disabled>Date</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -310,7 +310,7 @@ ul.tab li a:focus, .active {
                                 
                         <section class="col col-4">
 							<label class="select">
-								<select name="degree_month">
+								<select name="degree_month" id="degree_month">
 									<option value="0" selected disabled>Month</option>
 									<option value="1">January</option>
 									<option value="2">February</option>
@@ -384,7 +384,7 @@ ul.tab li a:focus, .active {
 					<div class="row">
 						<section class="col col-4">
 							<label class="select">
-								<select name="country">
+								<select name="country" id="country">
 									<option value="0" selected disabled>Country</option>
 									<option value="244">Aaland Islands</option>
 									<option value="1">Afghanistan</option>

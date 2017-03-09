@@ -6,18 +6,18 @@
 					   ->withCredentials("medicard", "medicard")
 					   ->build();
 		$keyspace  = 'test';
-		$session   = $cluster->connect($keyspace
+		$session   = $cluster->connect($keyspace);
 		
-		$doctor_id=($_POST['doctor_id'])
+		$doctor_id=($_POST['doctor_id']);
 		$f_name=($_POST['first_name']);
         $m_name= ($_POST['middle_name']);
         $l_name= ($_POST['last_name']);
         $emailid= ($_POST['email']);
         $password= ($_POST['pwd']);
         $confirm_pwd= ($_POST['cpwd']);
-        $gender= ($_POST['gender']);
+        $gender= ($_POST['gender_d']);
         $phone= ($_POST['phone']);
-        $e_contact= ($_POST['w=e_contact']);
+        $e_contact= ($_POST['e_contact']);
         $date= ($_POST['date']);
         $month= ($_POST['month']);
         $year= ($_POST['year']);
@@ -39,15 +39,17 @@
         $state= ($_POST['state']);
         $street= ($_POST['street']);
         //$photo=
-        
-        $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master(doctor_id, aadharcard, allergies, area, bloodgroup, city, country, dob, doctor_password, email, emergencycontact, fname, gender, lname, locality, mname, mobile, passportnumber, pin, roomnumber, society, state, street) VALUES ('".$doctor_id."','".$aadhar_no."','".$allergies."','".$address."','".$blood_grp."','".$city."','".$country."','".$date."'/'".$month."'/'".$year."','".$password."','".$emailid."','".$e_contact."','".$f_name."','".$gender."','".$l_name."','".$landmark."','".$m_name."','".$phone."','".$passport_no."','".$pincode."','".$degree_date."','".$college."','".$state."','".$street."')");
 
-        $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
-        $result    = $future->get();                      // wait for the result, with an optional timeout
-        foreach ($result as $row) {
+        $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master (doctor_id, aadharcard) VALUES ('".$doctor_id."','".$aadhar_no."')");
+        
+      /* $statement = new Cassandra\SimpleStatement("INSERT INTO doctor_master (doctor_id, aadharcard, allergies, area, bloodgroup,city,country,dob,doctor_password,email,emergencycontact,fname,gender,lname,locality,mname,mobile,passportnumber,pin,roomnumber,society,state,street) VALUES ('".$doctor_id."','".$aadhar_no."','".$allergies."','".$address."','".$blood_grp."','".$city."','".$country."','".$date."'/'".$month."'/'".$year."','".$password."','".$emailid."','".$e_contact."','".$f_name."','".$gender."','".$l_name."','".$landmark."','".$m_name."','".$phone."','".$passport_no."','".$pincode."','".$degree_date."','".$college."','".$state."','".$street."')");
+*/
+       $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
+      /*  $result    = $future->get();*/                    // wait for the result, with an optional timeout
+       /* foreach ($result as $row) {
           //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
         }
-        
-        header("location: add_new_everything.php");
+        */
+       header("location: add_new_everything.php");
         
 ?>
