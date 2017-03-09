@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+//use Cassandra;
+$cluster = Cassandra::cluster()
+               ->withContactPoints('192.168.43.219')
+               ->withPort(9042)
+               ->withCredentials("ria", "medicard")
+               ->build();
+$keyspace  = 'test';
+$session   = $cluster->connect($keyspace);  
+$id= $_GET['id'] ;      
+$statement = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where hnc_id=".$id.";");
+$future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
+$result    = $future->get();                      // wait for the result, with an optional timeout
+foreach ($result as $row) {
+  //echo $row['chemist_id'] . "   " . $row['area'] . "    " . $row['city'] . "<br>";
+}
 
+?>
 <head>
 	<link href='Pagination/styleforpagination.css' rel='stylesheet' type='text/css'>
 	<script src="Pagination/jquery.min.js"></script>
@@ -125,21 +142,23 @@
             <div class="row"> <!-- <h1>About Section</h1>-->
                    <div class="content">
                         <div style="float:left; width:50%;">
-                            <h2 class="m-a-0 m-b-xs"><b>Hospital Name</b></h2><br> <!-- Set Div As your requirement -->
+                            <h2 class="m-a-0 m-b-xs"><b><?= $row['name'] ?></b></h2><br> <!-- Set Div As your requirement -->
                             <img src="images/c9.jpg" style="height:300px">
                         </div>
                     </div>
                 <div class="content">
                         <div style="float:right; width:50%;">
                             <h3 class="m-a-0 m-b-xs"><b>Details:</b></h3><br>
-                             <p><b>Email : </b>abc@yahoo.com</p>
-                            <p><b>Contact : </b>9854621475</p>
+                             <p><b>Email : </b><?= $row['email'] ?></p>
+                            <p><b>Contact1 : </b><?= $row['contact1'] ?></p>
+                            <p><b>Contact2 : </b><?= $row['contact2'] ?></p>
+                            <p><b>Contact3 : </b><?= $row['contact3'] ?></p>
                              
                             <!-- Set Div As your requirement -->
                             <!--<img src="images/a6.jpg" style="height:250px">-->
                             <br>
                          <h3 class="m-a-0 m-b-xs"><b>Address:</b></h3>
-                            <p>fzksjguzbsdgvnshaihvoimjaf  <br>uaegfajf aiugef uageuf auwefhu <br>aueufg zsgfkhs zsgyfy ygsfyzh yga fuagfy yg f eygfy fg</p>
+                            <p><?= $row['shopnumber'].' '.$row['society'].'<br>'.$row['locality'].' '.$row['street'].'<br>'.$row['area'].'<br> '.$row['city'].'-'.$row['pin'].'<br>'.$row['state'].' '. $row['country'] ?> </p>
                             
                             
                             
@@ -170,7 +189,6 @@
     </section>
 
 
-
     <!-- Doctor Section -->
     <section id="services" class="services-section">
         <div class="container">
@@ -178,17 +196,33 @@
                 <div class="col-lg-12">
                     <h1>List of Doctors</h1>
                     <br><br>
-           	<div>
+           	    <div>
                    <ul id="" class = "paging2">
-                    <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b>Doctor's Name</b></span> <span style="float: left; width:40%"><b>Specialist</b></span><span style="float: left; width:20%"><b>Timings</b></span></li>
-                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> harshal</span> <span style="float: left; width:40%">sbfj</span><span style="float: left; width:20%">5-6pm</span></li>
-                     <li> <span style="float: left; width:10%"> 2 </span> <span  style="float: left; width:30%"> Ria</span> <span style="float: left; width:40%">Mumbai</span><span style="float: left; width:20%">2-4pm</span></li>
-                        <li> <span style="float: left; width:10%"> 3</span> <span  style="float: left; width:30%"> Mansi</span> <span style="float: left; width:40%">dhsbfhj</span><span style="float: left; width:20%">9-11am</span></li>
-                        <li> <span style="float: left; width:10%"> 4</span> <span  style="float: left; width:30%"> Kartik</span> <span style="float: left; width:40%">egsyjdrx</span><span style="float: left; width:20%">7-10pm</span></li>
-                    
-                </ul>
+                    <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b>Doctor's Name</b></span> <span style="float: left; width:40%"><b>Timings</b></span><span style="float: left; width:20%"><b>Base fee Rs.</b></span></li>
+                   
+<?php
+
+$statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where hnc_id=".$id." ALLOW FILTERING;");
+$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+$result2    = $future2->get();                      // wait for the result, with an optional timeout
+foreach ($result2 as $row2) {
+  
+
+$statement3 = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=".$row2['doctor_id']." ALLOW FILTERING;");
+$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+$result3    = $future3->get();                      // wait for the result, with an optional timeout
+foreach ($result3 as $row3) {
+
+?>
+                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> <?= $row3['fname'].' '.$row3['mname'].' '.$row3['lname'] ?></span> <span style="float: left; width:40%"><?= $row2['dayandtime'] ?></span><span style="float: left; width:20%"> <?= $row2['fees'] ?></span></li>
+
+
+<?php
+}}
+?>                 
+                    </ul>
+                 </div>
             </div>
-                </div>
             </div>
         </div>
     </section>

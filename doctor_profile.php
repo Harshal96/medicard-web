@@ -9,8 +9,9 @@ $cluster = Cassandra::cluster()
                ->withCredentials("ria", "medicard")
                ->build();
 $keyspace  = 'test';
-$session   = $cluster->connect($keyspace);        
-$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id='51862-215';");
+$session   = $cluster->connect($keyspace);
+$id= $_GET['id'] ;      
+$statement = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=".$id.";");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
@@ -45,7 +46,7 @@ foreach ($result as $row) {
             background-color: #e0e0e0;
             }
             ul.red {
-            outline:10px solid red;
+            outline:10px solid #eee;
             }
             ul.simplePagerNav li{
             display: inline-block;
@@ -110,8 +111,8 @@ foreach ($result as $row) {
             }
             }
             .rwd-table {
-            background: #ff0000 ; 
-            color: #fff;
+            background: #eee ; 
+            color: #eee;
             border-radius: .4em;
             overflow: hidden;
             border:none;
@@ -288,86 +289,41 @@ foreach ($result as $row) {
                         <div class="bgimg-2 w3-display-container" id = "prescriptions">
                             <div class="title">
                                 <br><br><br>
-                                <!--<span class="w3-xxlarge w3-text-black w3-wide">PRESCRIPTIONS</span>-->
-                            </div>
-                            <div class="post-wrapper">
-                                <div class="loading-overlay">
-                                    <div class="overlay-content">Loading.....</div>
-                                </div>
-                                <div id="posts_content">
-                                    <?php
-                                        //Include pagination class file
-                                        //include('Pagination.php');
-                                        
-                                        //Include database configuration file
-                                        //include('dbConfig.php');
-                                        
-                                        $limit = 5;
-                                        
-                                        //get number of rows
-                                        $queryNum = $db->query("SELECT COUNT(*) as postNum FROM patient_master");
-                                        $resultNum = $queryNum->fetch_assoc();
-                                        $rowCount = $resultNum['postNum'];
-                                        
-                                        //initialize pagination class
-                                        $pagConfig = array('baseURL'=>'getData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
-                                        $pagination =  new Pagination($pagConfig);
-                                        
-                                        //get rows
-                                        $query = $db->query("SELECT * FROM patient_master ORDER BY patient_id DESC LIMIT $limit");
-                                        
-                                        if($query->num_rows > 0){ ?>
-                                    <table class="rwd-table">
-                                        <tr>
-                                            <th>Movie Title</th>
-                                            <th>Genre</th>
-                                            <th>Year</th>
-                                            <th>Gross</th>
-                                        </tr>
-                                        <?php
-                                            while($row = $query->fetch_assoc()){ 
-                                                $postID = $row['patient_id'];
-                                            ?>
-                                        <tr>
-                                            <a href="javascript:void(0);">
-                                                <h2><?php echo $row["Fname"]; ?></h2>
-                                            </a>
-                                        </tr>
-                                        <?php } ?>
-                                    </table>
-                                    <?php echo $pagination->createLinks(); ?>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                            <!--<div>
+                          <div>
                                 <table class="rwd-table">
                                     <tr>
-                                        <th>Movie Title</th>
-                                        <th>Genre</th>
-                                        <th>Year</th>
-                                        <th>Gross</th>
+                                        <th>Hospital name</th>
+                                        <th>Area</th>
+                                        <th>Timings</th>
+                                        <th>Basic fees Rs</th>
                                     </tr>
+
+<?php
+
+$statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where doctor_id=".$id." ALLOW FILTERING;");
+$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+$result2    = $future2->get();                      // wait for the result, with an optional timeout
+foreach ($result2 as $row2) {
+  
+
+$statement3 = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where hnc_id=".$row2['hnc_id']." ALLOW FILTERING;");
+$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+$result3    = $future3->get();                      // wait for the result, with an optional timeout
+foreach ($result3 as $row3) {
+
+?>
                                     <tr>
-                                        <td data-th="Sr.">Star Wars</td>
-                                        <td data-th="Hospital">Adventure, Sci-fi</td>
-                                        <td data-th="Area">1977</td>
-                                        <td data-th="Timing">$460,935,665</td>
+                                        <td data-th="Sr."><?= $row3['name'] ?></td>
+                                        <td data-th="Hospital"> <?= $row3['area'] ?></td>
+                                        <td data-th="Area"> <?= $row2['dayandtime'] ?></td>
+                                        <td data-th="Timing"><?= $row2['fees'] ?></td>
                                     </tr>
-                                    <tr>
-                                        <td data-th="Movie Title">Howard The Duck</td>
-                                        <td data-th="Genre">"Comedy"</td>
-                                        <td data-th="Year">1986</td>
-                                        <td data-th="Gross">$16,295,774</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-th="Movie Title">American Graffiti</td>
-                                        <td data-th="Genre">Comedy, Drama</td>
-                                        <td data-th="Year">1973</td>
-                                        <td data-th="Gross">$115,000,000</td>
-                                    </tr>
+<?php
+}}
+?>
                                 </table>
                                 
-                                </div>   --> 
+                                </div>   
                         </div>
                     </div>
                 </div>
@@ -400,7 +356,7 @@ foreach ($result as $row) {
             </div>
         </section>
         <!-- Contact Section -->
-        <section id="contact" class="contact-section">
+        <section id="contact" class="services-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">

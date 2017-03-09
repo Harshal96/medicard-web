@@ -236,24 +236,29 @@
                     <th>Year</th>
                     <th>Gross</th>
                 </tr>
-                <tr>
-                    <td data-th="Sr.">Star Wars</td>
-                    <td data-th="Hospital">Adventure, Sci-fi</td>
-                    <td data-th="Area">1977</td>
-                    <td data-th="Timing">$460,935,665</td>
-                </tr>
-                <tr>
-                    <td data-th="Movie Title">Howard The Duck</td>
-                    <td data-th="Genre">"Comedy"</td>
-                    <td data-th="Year">1986</td>
-                    <td data-th="Gross">$16,295,774</td>
-                </tr>
-                <tr>
-                    <td data-th="Movie Title">American Graffiti</td>
-                    <td data-th="Genre">Comedy, Drama</td>
-                    <td data-th="Year">1973</td>
-                    <td data-th="Gross">$115,000,000</td>
-                </tr>
+                <?php
+
+$statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where doctor_id=".$row['doctor_id']." ALLOW FILTERING;");
+$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+$result2    = $future2->get();                      // wait for the result, with an optional timeout
+foreach ($result2 as $row2) {
+  
+
+$statement3 = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where hnc_id=".$row2['hnc_id']." ALLOW FILTERING;");
+$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+$result3    = $future3->get();                      // wait for the result, with an optional timeout
+foreach ($result3 as $row3) {
+
+?>
+                                    <tr>
+                                        <td data-th="Sr."><?= $row3['name'] ?></td>
+                                        <td data-th="Hospital"> <?= $row3['area'] ?></td>
+                                        <td data-th="Area"> <?= $row2['dayandtime'] ?></td>
+                                        <td data-th="Timing"><?= $row2['fees'] ?></td>
+                                    </tr>
+<?php
+}}
+?>
             </table>
 
         </div>
