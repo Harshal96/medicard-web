@@ -31,7 +31,7 @@ foreach ($result2 as $row2) {
 }
 
 
-$statement = new Cassandra\SimpleStatement("INSERT INTO appointment_master(app_id,date,doctor_id,hnc_id,patient_id) VALUES (uuid(),'".$date."',".$did.",111,".$row2['patient_id'].");");
+$statement = new Cassandra\SimpleStatement("INSERT INTO appointment_master(app_id,date,doctor_id,hnc_id,patient_id) VALUES (uuid(),'".$date." ".$time."',".$did.",111,".$row2['patient_id'].");");
 
 $future = $session->executeAsync($statement);
 
