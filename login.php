@@ -66,7 +66,17 @@ echo "<script type='text/javascript'>alert('Incorrect Login. Please try again');
 
 else if($role=='admin')
 {
+
+$statement = new Cassandra\SimpleStatement ("SELECT admin_id,admin_password from admin_master where admin_id = ".$username." and admin_password = '".$password."' ALLOW FILTERING");
+
+$future = $session->executeAsync($statement);
+
+$result = $future->get();
+
+foreach ($result as $row) {
 	header("Location: add_new_everything.php");
+}
+
 echo "<script type='text/javascript'>alert('Incorrect Login. Please try again'); window.location = 'home.html';</script>";
 
 }
