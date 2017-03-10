@@ -4,6 +4,10 @@
 
 <style>
 /* Full-width input fields */
+.loginone
+{
+    display: inline;
+}
 body{
     font-family: Georgia, serif;
 }
@@ -78,7 +82,7 @@ span.psw {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
+    padding-top: 20px;
 }
 
 /* Modal Content/Box */
@@ -188,10 +192,7 @@ span.psw {
   <div id="id01" class="modal">
   
   <form class="modal-content animate" action="login.php" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="images/img_avatar1Blue.png" alt="Avatar" class="avatar">
-    </div>
+    
 
     <div class="container" style="width: 100%">
       <label><b>Username</b></label>
@@ -201,10 +202,12 @@ span.psw {
       <input type="password" placeholder="Enter Password" name="psw" id="psw" required style="width:100%">
 <br/>
     <label><b>Login as a</b></label> <br>
+    <ul><li class="loginone">
     <input type="radio" name="role" id="role_patient" value="patient"> Patient<br>
     <input type="radio" name="role" id="role_doctor" value="doc"> Doctor<br>
     <input type="radio" name="role" id="role_diag" value="diag"> Diagnostic<br>
-
+    <input type="radio" name="role" id="role_admin" value="admin"> Admin<br>
+    </li></ul>
       <input type="submit" style="width: 100%" class="loginbtn" value="LOGIN"></input> <br/>
       <input type="checkbox" checked="checked"> Remember me
     </div>

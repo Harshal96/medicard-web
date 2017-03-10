@@ -6,8 +6,12 @@ session_start();
 $doctor_email_here = $_SESSION['userid'];
 $patientemail = $_SESSION['searchpid'];
 
-include 'connectivity.php';
-
+//use Cassandra;
+$cluster = Cassandra::cluster()
+               ->withContactPoints('192.168.43.219')
+               ->withPort(9042)
+               ->withCredentials("ria", "medicard")
+               ->build();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);        
 $statement = new Cassandra\SimpleStatement("SELECT * from patient_master where email='".$patientemail."' ALLOW FILTERING");
@@ -16,8 +20,14 @@ $result    = $future->get();                      // wait for the result, with a
 foreach ($result as $row) {
   //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
 }
+                    $statement4 = new Cassandra\SimpleStatement("SELECT doctor_id from doctor_master where email = '".$doctor_email_here."' ALLOW FILTERING");
+                    //$doctor_id_here = '899';
+                    $future4 = $session->executeAsync($statement4);  // fully asynchronous and easy parallel execution
+                    $result4 = $future4->get();                      // wait for the result, with an optional timeout
+                    foreach ($result4 as $row4) {
+                        $doctor_id_here = $row4['doctor_id'];
+                    }
 ?>
-
 <head>
 
     <meta charset="utf-8">
@@ -208,24 +218,18 @@ foreach ($result as $row) {
 
     <section id="writeAPrescription" class="about-section">
     <?php 
-    $statement4 = new Cassandra\SimpleStatement("SELECT doctor_id from doctor_master where email = '".$doctor_email_here."' ALLOW FILTERING");
-                    //$doctor_id_here = '899';
-                    $future4 = $session->executeAsync($statement4);  // fully asynchronous and easy parallel execution
-                    $result4 = $future4->get();                      // wait for the result, with an optional timeout
-                    foreach ($result4 as $row4) {
-                        $doctor_id_here = $row4['doctor_id'];
-                    }
+    
     ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Write a Prescription</h1><br>
-		    <form action = "" method="post">
+		    <form action="addPres.php" method="post">
 			<input type="label" id="doctor-id" value="Doctor ID: <?= $doctor_id_here ?>" disabled> 
 			<input type="label" id="patient-id" value="Patient ID: <?= $row['patient_id']?>" disabled>
                     	<input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Symptoms" size="28" style="width: 50%" />  
 			<input name="detected_disease" type="text" class="form-control" id="detected_disease" placeholder="Detected Disease" size="28" style="width: 50%" />
-			<button onclick="addMed(); return false;" class="form-control"    style="width: 50%;background-color: #99dfff">Add Medicine Prescription</button>
+			<button onclick="addMed(); return false;" class="form-control"  style="width: 50%;background-color: #99dfff">Add Medicine Prescription</button>
             <!--<input name="Medicines" type="text" class="form-control" id="Medicines" placeholder="Medicines" size="28" style="width: 50%" />-->
             <div id ="MedIncr"></div>
             <script type="text/javascript">
@@ -233,8 +237,8 @@ foreach ($result as $row) {
                 write=document.getElementById('MedIncr');
                 function addMed()
                 {
-                write.innerHTML+="<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"m-a-n\" value=\"morning\"style=\"display:inline;\">Morning</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"afternoon\"style=\"display:inline\">Afternoon</input>&nbsp<input type=\"checkbox\" name=\"m-a-n\" value=\"night\"style=\"display:inline\">Night</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #99dfff\">X</button></span>";
-                med=med + 1;
+                write.insertAdjacentHTML('beforeend',"<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\" name=\"MedicineName" + med + "\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"MedicineName" + med + "01\" value=\"breakfast\"style=\"display:inline;\">Breakfast</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "02\" value=\"lunch\"style=\"display:inline\">Lunch</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "03\" value=\"dinner\"style=\"display:inline\">Dinner</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #ff6666\">X</button></span>");
+                    med=med + 1;
                 }
                 function removeMed(idSent){
                     var elem = document.getElementById(idSent);
@@ -242,11 +246,8 @@ foreach ($result as $row) {
                     return false;
                 }
             </script>
-            
-
-
 			<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />
-			<input type="submit" value="Save" />
+			<input type="submit" value="Save" name="saveBtn" />
 		    </form>
                 </div>
             </div>

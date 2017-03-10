@@ -13,6 +13,11 @@ $keyspace = 'test';
 
 $session = $cluster->connect($keyspace);
 
+if($role=='')
+{
+	echo "<script type='text/javascript'>alert('Select a user'); window.location = 'home.html';</script>";
+
+}
 
 if($role=='patient')
 {
@@ -25,10 +30,11 @@ $result = $future->get();
 foreach ($result as $row) {
 	header("Location: patient_master.php");
 }
+echo "<script type='text/javascript'>alert('Incorrect Login. Please try again'); window.location = 'home.html';</script>";
 }
 
 
-if($role=='doc')
+else if($role=='doc')
 {
 $statement = new Cassandra\SimpleStatement ("SELECT email, doctor_password from doctor_master where email = '".$username."' and doctor_password = '".$password."' ALLOW FILTERING");
 
@@ -40,10 +46,11 @@ echo $role;
 foreach ($result as $row) {
 	header("Location: doctor_master.php");
 }
+echo "<script type='text/javascript'>alert('Incorrect Login. Please try again'); window.location = 'home.html';</script>";
 }
 
 
-if($role=='diag')
+else if($role=='diag')
 {
 $statement = new Cassandra\SimpleStatement ("SELECT email, diagnostics_password from diagnostics_master where email = '".$username."' and diagnostics_password = '".$password."' ALLOW FILTERING");
 
@@ -54,6 +61,14 @@ $result = $future->get();
 foreach ($result as $row) {
 	header("Location: diagnostics_master.php");
 }
+echo "<script type='text/javascript'>alert('Incorrect Login. Please try again'); window.location = 'home.html';</script>";
+}
+
+else if($role=='admin')
+{
+	header("Location: add_new_everything.php");
+echo "<script type='text/javascript'>alert('Incorrect Login. Please try again'); window.location = 'home.html';</script>";
+
 }
 
 
