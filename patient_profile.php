@@ -18,6 +18,8 @@ $statement = new Cassandra\SimpleStatement("SELECT * from patient_master where e
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
+    $patient_ID = $row['patient_id'];
+    $_SESSION['$p_id'] = $patient_ID;
   //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
 }
                     $statement4 = new Cassandra\SimpleStatement("SELECT doctor_id from doctor_master where email = '".$doctor_email_here."' ALLOW FILTERING");
@@ -26,34 +28,22 @@ foreach ($result as $row) {
                     $result4 = $future4->get();                      // wait for the result, with an optional timeout
                     foreach ($result4 as $row4) {
                         $doctor_id_here = $row4['doctor_id'];
+                        $_SESSION['$doc_ID'] = $doctor_id_here;
                     }
 ?>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Patient Profile</title>
-
     <!-- Bootstrap Core CSS -->
 <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/patient.css">
-
 	<link href="css/bootstrap.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
@@ -156,7 +146,7 @@ foreach ($result as $row) {
 				foreach ($result3 as $row3) { }
 
 				
-				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
 			}
         
 			?>
@@ -194,10 +184,10 @@ foreach ($result as $row) {
 				$result3    = $future3->get();                      // wait for the result, with an optional timeout
 
 				foreach ($result3 as $row3) {
-				//echo $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+				//echo $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
 				 }
 				
-				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
 			}
 			?>
 
@@ -217,17 +207,15 @@ foreach ($result as $row) {
     </section>
 
     <section id="writeAPrescription" class="about-section">
-    <?php 
     
-    ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Write a Prescription</h1><br>
 		    <form action="addPres.php" method="post">
 			<input type="label" id="doctor-id" value="Doctor ID: <?= $doctor_id_here ?>" disabled> 
-			<input type="label" id="patient-id" value="Patient ID: <?= $row['patient_id']?>" disabled>
-                    	<input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Symptoms" size="28" style="width: 50%" />  
+			<input type="label" id="patient-id" value="Patient ID: <?= $patient_ID ?>" disabled>
+            <input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Symptoms" size="28" style="width: 50%" />  
 			<input name="detected_disease" type="text" class="form-control" id="detected_disease" placeholder="Detected Disease" size="28" style="width: 50%" />
 			<button onclick="addMed(); return false;" class="form-control"  style="width: 50%;background-color: #99dfff">Add Medicine Prescription</button>
             <!--<input name="Medicines" type="text" class="form-control" id="Medicines" placeholder="Medicines" size="28" style="width: 50%" />-->
@@ -246,8 +234,8 @@ foreach ($result as $row) {
                     return false;
                 }
             </script>
-			<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />
-			<input type="submit" value="Save" name="saveBtn" />
+			<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />Fees charged
+			<Button type="submit" value="Save" name="saveBtn" >Save</Button>
 		    </form>
                 </div>
             </div>
