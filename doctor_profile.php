@@ -4,7 +4,7 @@
 <?php
 //use Cassandra;
 include 'connectivity.php';
-
+session_start();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);
 $id= $_GET['id'] ;      
@@ -333,19 +333,29 @@ foreach ($result as $row) {
                     <div class="col-lg-12">
                         <h1>Appointment</h1>
                         <div>
-                            <form action="" method="post">
+                            <form action="doctor_appt.php?id=<?= $id ?>" method="post">
                                 <table style="width: 100%; margin-top: 50px">
                                     <tr >
-                                        <td rowspan="3" style="width: 30%;"><input type="text" id="datepicker" name="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: <br>
+                                        <td rowspan="3" style="width: 30%;float: "><input type="text" id="datepicker" name="datepicker" style="width: 100%;"></td> <td style="width: 70%"> Preferrable Time: <br>
                                         
-                                        <input type="radio" name="timeSlot" value ="12PM - 1 " /> 12 - 1</td>
+                                        <input type="radio" name="timeSlot" value ="12-1" /> 12 pm - 1 pm</td>
                                     </tr>
-                                    <tr><td><input type="radio" name="timeSlot" value="1 - 2PM" /> 1 - 2 </td>
+                                    <tr><td><input type="radio" name="timeSlot" value="1-2" /> 1 pm - 2 pm </td>
                                     </tr>
-                                    <tr><td><input type="radio" name="timeSlot" value="2 -3 PM" />2 - 3</td>
+                                    <tr><td><input type="radio" name="timeSlot" value="2-3" />2 pm - 3 pm</td>
                                     </tr>
                                     <tr id="trSeperator"style="height: 10px">
                                     </tr>
+                                    <tr>
+ <!--                                       
+<?php 
+//foreach ($result3 as $row3) {
+?>
+<input type="radio" name="hnc" value="<?= $row3['hnc_id'] ?>" /> <?= $row3['name'] ?>
+<?php
+//}
+?>
+     -->                               </tr>
                                     <tr>
                                     <td colspan="2"><input type="submit" value="Book" /></td>
                                     </tr>
