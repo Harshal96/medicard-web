@@ -10,7 +10,7 @@ $patientemail = $_SESSION['searchpid'];
 $cluster = Cassandra::cluster()
                ->withContactPoints('192.168.43.219')
                ->withPort(9042)
-               ->withCredentials("medicard", "medicard")
+               ->withCredentials("ria", "medicard")
                ->build();
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);        
@@ -27,37 +27,7 @@ foreach ($result as $row) {
                     foreach ($result4 as $row4) {
                         $doctor_id_here = $row4['doctor_id'];
                     }
-    if(isset($_POST['SaveBtn'])){
-        //$name = 'MedicineName';
-        $medPres="(";
-        foreach($_POST as $k => $v) {
-
-            $pos = strpos($k, "MedicineName");
-            if($pos === 0){
-                $medPres .=$v.",";
-            } 
-
-        }
-        $medPres.=$_POST['aORb'].")";
-        $prescriptions_id=12345;
-        $diseasesP=$_POST['detected_disease'];
-        $dopP=date(Y/m/d);
-        echo $dopP;
-        $fees_chargedP=$_POST['Fees'];
-        $hnc_idP=12345;
-        $symptomsP = $_POST['symptoms_detected'];
-        /*$addPresToDB = new Cassandra\SimpleStatement("INSERT INTO prescriptions (prescriptions_id, diseases, doctor_id, dop, fees_charged,hnc_id,medicines,patient_id,symptoms) VALUES (".$prescriptions_id.",'".$diseasesP."',".$doctor_id_here.",'".$dopP."',".$fees_chargedP.",".$hnc_idP.",".$row['patient_id'].",'".$symptomsP."')");*/
-
-        $addPresToDB = new Cassandra\SimpleStatement("INSERT INTO prescriptions (prescriptions_id, diseases, doctor_id, dop,hnc_id,medicines,patient_id,symptoms) VALUES (".$prescriptions_id.",'".$diseasesP."',".$doctor_id_here.",'".$dopP."',".$hnc_idP.",".$row['patient_id'].",'".$symptomsP."')");
-        $futurePresDB    = $session->executeAsync($addPresToDB);  // fully asynchronous and easy parallel execution
-        //$resultPresDB    = $futurePresDB->get();                      // wait for the result, with an optional timeout
-        //foreach ($resultPresDB as $rowPresDB) {
-          //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
-        //}
-
-    }
 ?>
-
 <head>
 
     <meta charset="utf-8">
@@ -254,7 +224,7 @@ foreach ($result as $row) {
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Write a Prescription</h1><br>
-		    <form method="post">
+		    <form action="addPres.php" method="post">
 			<input type="label" id="doctor-id" value="Doctor ID: <?= $doctor_id_here ?>" disabled> 
 			<input type="label" id="patient-id" value="Patient ID: <?= $row['patient_id']?>" disabled>
                     	<input name="symptoms_detected" type="text" class="form-control" id="symptoms_detected" placeholder="Symptoms" size="28" style="width: 50%" />  
@@ -267,7 +237,7 @@ foreach ($result as $row) {
                 write=document.getElementById('MedIncr');
                 function addMed()
                 {
-                write.insertAdjacentHTML('beforeend',"<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\" name=\"MedicineName" + med + "\">&nbsp<input type=\"radio\" name=\"aORb" + med + "\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb" + med + "\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"MedicineName" + med + "01\" value=\"breakfast\"style=\"display:inline;\">Breakfast</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "02\" value=\"lunch\"style=\"display:inline\">Lunch</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "03\" value=\"dinner\"style=\"display:inline\">Dinner</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #ff6666\">X</button></span>");
+                write.insertAdjacentHTML('beforeend',"<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\" name=\"MedicineName" + med + "\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"MedicineName" + med + "01\" value=\"breakfast\"style=\"display:inline;\">Breakfast</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "02\" value=\"lunch\"style=\"display:inline\">Lunch</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "03\" value=\"dinner\"style=\"display:inline\">Dinner</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #ff6666\">X</button></span>");
                     med=med + 1;
                 }
                 function removeMed(idSent){
