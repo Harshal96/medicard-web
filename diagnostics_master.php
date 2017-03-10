@@ -256,6 +256,7 @@
 					<input type="submit" name="submit_image" value="Upload" id="submit_image">
 					<input name="search_pid" type="text" class="form-control" id="search_pid" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
                     <input name="d_id" type="hidden" value="<?= $row['diagnostics_id'] ?>" id="d_id">
+                    <input name="desc_report" type="textarea" id="desc_report">
 				</form>
             </div>
         </div>
