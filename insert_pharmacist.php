@@ -22,11 +22,12 @@
         $address= ($_POST['address']);
         $landmark= ($_POST['landmark']);
         //$photo=
-        $home_delivery= ($_POST['home_delivery']);
+        $home_delivery= ($_POST['available']);
             
-        /*$statement = new Cassandra\SimpleStatement("INSERT INTO chemist(chemist_id, shopname, shopnumber, Society, Street, Locality, Area, City, pin, state, country, contact, email, availableforhd, workinghours) VALUES (".$pharm_id.",'".$name."','','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','".$phone1."','".$emailid."','".$home_delivery."','".$operating_hrs."')");*/
+        $statement = new Cassandra\SimpleStatement("INSERT INTO chemist(chemist_id, shopname, shopnumber, Society, Street, Locality, Area, City, pin, state, country, contact, email, availableforhd, workinghours) VALUES (".$pharm_id.",'".$name."','','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','".$phone1."','".$emailid."',".$home_delivery.",".$operating_hrs.")");
+		echo "INSERT INTO chemist(chemist_id, shopname, shopnumber, Society, Street, Locality, Area, City, pin, state, country, contact, email, availableforhd, workinghours) VALUES (".$pharm_id.",'".$name."','','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','".$phone1."','".$emailid."',".$home_delivery.",".$operating_hrs.")";
 
-        $statement = new Cassandra\SimpleStatement("INSERT INTO chemist(chemist_id, shopname, shopnumber, Society, Street, Locality, Area, City, pin, state, country, contact, email) VALUES (".$pharm_id.",'".$name."','','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','".$phone1."','".$emailid."')");
+        //$statement = new Cassandra\SimpleStatement("INSERT INTO chemist(chemist_id, shopname, shopnumber, Society, Street, Locality, Area, City, pin, state, country, contact, email) VALUES (".$pharm_id.",'".$name."','','','','".$landmark."','".$address."','".$city."','".$pincode."','','".$country."','".$phone1."','".$emailid."')");
         
         $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
       /*  $result    = $future->get();*/                    // wait for the result, with an optional timeout
@@ -34,6 +35,6 @@
           //echo $row['patient_id'] . "   " . $row['fname'] . "   " . $row['gender'] . "<br>";
         }
         */
-       header("location: add_new_everything.php");
+       //header("location: add_new_everything.php");
         
 ?>

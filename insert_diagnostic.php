@@ -28,11 +28,14 @@
         $doctor_name= ($_POST['d_name']);
         $workingsince=$date.'/'.$month.'/'.$year;
          
-        $statement=new Cassandra\SimpleStatement("INSERT INTO diagnostics_master(diagnostics_id, Dname, Contact, Contact2, Contact3, Email, WorkingSince, ShopNumber, Society, Street, Locality, Area, City, pin, state, country, Services) values (".$diagnostic_id.",'".$name."','".$phone1."','".$phone2."','".$phone3."','".$emailid."','".$workingsince."','','','','".$address."','".$landmark."','".$city."','".$pincode."','','".$country."','".$services."','".$operating_hrs."')");
-
+        $statement=new Cassandra\SimpleStatement("INSERT INTO diagnostics_master(diagnostics_id, Dname, Contact, Contact2, Contact3, Email, WorkingSince, ShopNumber, Society, Street, Locality, Area, City, pin, state, country, Services,noofhours) values (".$diagnostic_id.",'".$name."','".$phone1."','".$phone2."','".$phone3."','".$emailid."','".$workingsince."','','','','".$address."','".$landmark."','".$city."','".$pincode."','','".$country."','".$services."',".$operating_hrs.")");
+		
+		
+		echo "INSERT INTO diagnostics_master(diagnostics_id, Dname, Contact, Contact2, Contact3, Email, WorkingSince, ShopNumber, Society, Street, Locality, Area, City, pin, state, country, Services,noofhours) values (".$diagnostic_id.",'".$name."','".$phone1."','".$phone2."','".$phone3."','".$emailid."','".$workingsince."','','','','".$address."','".$landmark."','".$city."','".$pincode."','','".$country."','".$services."',".$operating_hrs.")";
+        
         /*$statement=new Cassandra\SimpleStatement("INSERT INTO diagnostics_master(diagnostics_id, diagnostics_Password, Dname, Contact, Contact2, Contact3, Email, WorkingSince, ShopNumber, Society, Street, Locality, Area, City, pin, state, country, Services, NoOfHours, doctor_id) VALUES ('".$diagnostic_id."','".$password."','".$name."','".$phone1."','".$phone2."','".$phone3."','".$emailid."','".$workingsince."','','','','".$address."','".$landmark."','".$city."','".$pincode."','','".$country."','".$services."','".$operating_hrs."','".$doctor_id."')");*/
         
-        $future    = $session->executeAsync($statement);
+        $future = $session->executeAsync($statement);
         
         header("location: add_new_everything.php");
 

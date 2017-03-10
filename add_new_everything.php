@@ -2566,7 +2566,9 @@ ul.tab li a:focus, .active {
                     
                 <fieldset>
                     <section>
-                        <label class="toggle state-error"><input type="radio" name="radio-toggle" id="home_delivery"><i></i>Available for Home Delivery</label>
+                        <label>Available for Home Delivery</label>&nbsp;
+                        <input type="radio" name="available" id="available" value=true>Yes<i></i>
+                        <input type="radio" name="available" id="available" value=false>No<i></i>
                     </section>
                 </fieldset>
                         
