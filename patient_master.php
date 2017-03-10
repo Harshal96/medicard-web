@@ -264,7 +264,7 @@
 					//
 				}
 				
-				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'] . "<br>";
+				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
 			}
 			?>
                     <!--<ul id="p_list" class = "paging">
@@ -390,7 +390,7 @@ foreach ($result3 as $row3) {
 ?>
                                     <tr>
                                         <td data-th="Sr."><?= $row2['app_id'] ?></td>
-                                        <td data-th="Hospital"> <?= $row3['fname'].' '.$row3['mname'].' '.$row3['lname'] ?></td>
+                                        <td data-th="Hospital"> <?= $result3[0]['fname'].' '.$result3[0]['mname'].' '.$result3[0]['lname'] ?></td>
                                         <td data-th="Area"> <?= $row2['date'] ?></td>
                                     </tr>
 <?php
