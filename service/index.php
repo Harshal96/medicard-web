@@ -83,9 +83,56 @@ $app->group('/api', function () use ($app) {
 	$id=$result[0]['patient_id'];
 	
     return $response->withJson([
+			'id' => $id,
 			'fname' => $fname,
-			'lname' => $lname
+			'mname' => $mname,
+			'lname' => $lname,
+			'gender' => $gender,
+			'mobile' => $mobile,
+			'dob' => $dob,
+			'address' => $address,
+			'bloodgroup' => $bloodgroup,
+			'allergies' => $allergies,
+			'emergencycontact' => $emergencycontact
         ]);
     });
+
+/* Prescriptions of Patients */
+    
+    $app->get('/patient/prescriptions', function ($request, $response, $args) use ($app) {
+	include '../connectivity.php';
+	$allGetVars = $request->getQueryParams();
+	$patient_email = $allGetVars['email'];
+	$keyspace = 'test';
+	$session = $cluster->connect($keyspace);
+	$stIDFetch =new Cassandra\SimpleStatement ("SELECT patient_id from patient_master where email = '".$patient_email."' ALLOW FILTERING");
+	$fIDFetch = $session->executeAsync($stIDFetch);
+	$rIDFetch = $fIDFetch->get();
+	$patient_id = $rIDFetch[0]['patient_id'];
+	$statement = new Cassandra\SimpleStatement ("SELECT * from prescriptions where patient_id =".$patient_id." ALLOW FILTERING");
+	$future = $session->executeAsync($statement);
+	$result = $future->get();
+	$prescriptions_id=$result[0]['prescriptions_id'];
+	$diseases=$result[0]['diseases'];
+	$doctor_id=$result[0]['doctor_id'];
+	$dop=$result[0]['dop'];
+	$fees_charged=$result[0]['fees_charged'];
+	$medicines=$result[0]['medicines'];
+	$symptoms=$result[0]['symptoms'];
+	
+    return $response->withJson([
+    		'patient_email' => $patient_email,
+			'prescriptions_id' => $prescriptions_id,
+			'patient_id' => $patient_id,
+			'doctor_id' => $doctor_id,
+			'dop' => $dop,
+			'symptoms' => $symptoms,
+			'diseases' => $diseases,
+			'medicines' => $medicines,
+			'fees_charged' => $fees_charged
+        ]);
+    });
+
+/* End of prescriptions*/
 });
 $app->run();
