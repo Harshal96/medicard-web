@@ -1,9 +1,5 @@
 <?php
-		
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
+session_start();
 require 'vendor/autoload.php';
 
 $settings =  [
@@ -14,57 +10,74 @@ $settings =  [
 
 $app = new Slim\App($settings);
 
-
-//$app = new Slim\App();
-
-$app->add(new \Slim\Middleware\HttpBasicAuthentication(array(
-
-    "path" => "/api",
-
-    "secure" => false,
-
-    "users" => [
-        "demouser" => "123",
-    ],
-    "error" => function ($request, $response, $arguments) {
-
-        return $response->withStatus(401);
-    }
-)));
+//$app = new Slim\Slim();
 
 $app->group('/api', function () use ($app) {
+	
+	$app->get('/login', function ($request, $response, $args) use ($app) {
+	include '../connectivity.php';
+	$allGetVars = $request->getQueryParams();
+	
+	if(!(array_key_exists('email',$allGetVars) && array_key_exists('password',$allGetVars)))
+	{
+		return $response->withJson([
+		'message'=>'missing credentials'
+		]);
+	}
+	
+	$email = $allGetVars['email'];
+	$password = $allGetVars['password'];
+	
+	$keyspace = 'test';
+
+	$session = $cluster->connect($keyspace);
+	$statement = new Cassandra\SimpleStatement ("SELECT email, patient_password from patient_master where email = '".$email."' and patient_password = '".$password."' ALLOW FILTERING");
+
+	$future = $session->executeAsync($statement);
+
+	$result = $future->get();
+
+	foreach ($result as $row) {
+		$_SESSION["loggedInAs"]="patient";
+		return $response->withJson([
+		'message'=>'patient login successful'
+		]);
+	}
+	
+	$statement = new Cassandra\SimpleStatement ("SELECT email, doctor_password from doctor_master where email = '".$username."' and doctor_password = '".$password."' ALLOW FILTERING");
+
+	$future = $session->executeAsync($statement);
+
+	$result = $future->get();
+
+	foreach ($result as $row) {
+		$_SESSION["loggedInAs"]="doctor";
+		return $response->withJson([
+		'message'=>'doctor login successful'
+		]);
+	}
+	
+	    return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+    });
+    
     
     $app->get('/test', function ($request, $response, $args) use ($app) {
 	$allGetVars = $request->getQueryParams();
         return $response->withJson([
-			//
-				/*
-				 //GET
-			$allGetVars = $request->getQueryParams();
-			foreach($allGetVars as $key => $param){
-			   //GET parameters list
-			}
-
-			//POST or PUT
-			$allPostPutVars = $request->getParsedBody();
-			foreach($allPostPutVars as $key => $param){
-			   //POST or PUT parameters list
-			}
-
-			Single parameters value:
-
-			//Single GET parameter
-			$getParam = $allGetVars['title'];
-
-			//Single POST/PUT parameter
-			$postParam = $allPostPutVars['postParam'] 
-				 */
 			'request sent' => $allGetVars
         ]);
     });
     
     $app->get('/patient/basic', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=="patient"))
+	{
+		return $response->withJson([
+		'message'=>$_SESSION["loggedInAs"]
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 	$patient_email = $allGetVars['email'];
 	
@@ -105,6 +118,12 @@ $app->group('/api', function () use ($app) {
     
     $app->get('/patient/prescriptions', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=='patient'))
+	{
+		return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 	$patient_email = $allGetVars['email'];
 	$keyspace = 'test';
@@ -150,32 +169,7 @@ for($c=0; $c<$countRows; $c++){
 	
 	return $response->withJson([
 		'prescriptions' => $out
-		//$result[0]['prescriptions_id']
 		]);
-
-/*
-	$prescriptions_id=$result[0]['prescriptions_id'];
-	$diseases=$result[0]['diseases'];
-	$doctor_id=$result[0]['doctor_id'];
-	$dop=$result[0]['dop'];
-	$fees_charged=$result[0]['fees_charged'];
-	$medicines=$result[0]['medicines'];
-	$symptoms=$result[0]['symptoms'];
-	*/
-/*
-    return $response->withJson([
-    		'count' => $countRows,
-    		'patient_email' => $patient_email,
-			'prescriptions_id' => $prescriptions_id,
-			'patient_id' => $patient_id,
-			'doctor_id' => $doctor_id,
-			'dop' => $dop,
-			'symptoms' => $symptoms,
-			'diseases' => $diseases,
-			'medicines' => $medicines,
-			'fees_charged' => $fees_charged
-        ]);
-        */
     });
 
 
@@ -183,6 +177,12 @@ for($c=0; $c<$countRows; $c++){
     
     $app->get('/patient/reports', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=='patient'))
+	{
+		return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 	$patient_email = $allGetVars['email'];
 	$keyspace = 'test';
@@ -225,40 +225,19 @@ for($c=0; $c<$countRows; $c++){
 	return $response->withJson([
 		'cn' => $countRows,
 		'reports' => $out
-		//$result[0]['prescriptions_id']
 		]);
 	});
-/*
-
-foreach ($r_result as $r_row) 
-{
-	//$CurlConnect = curl_init();
-//curl_setopt($CurlConnect, CURLOPT_URL, 'http://localhost/medicard-web/download_report.php?r_id='.$r_row['r_id'].'');
-//$Result = curl_exec($CurlConnect);
-
-$send = $r_row['file'];
-$r_id =$r_row['r_id'];
-$p_id =$r_row['p_id'] ;
-$d_id = $r_row['d_id'];
-$description = $r_row['description'];
-$time     =$r_row['time'];
-}
-
-    return $response->withJson([
-'r_id' => $r_id, 
-'p_id' => $p_id,
-'d_id' => $d_id,
-'description' => $description,
-'time' => $time,
-'file' => $send
-        ]);
-    });
-
 /* End of report*/
 // doctor
 
   $app->get('/doctor/basic', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=='doctor'))
+	{
+		return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 	$doctor_email = $allGetVars['email'];
 	
@@ -296,8 +275,14 @@ $time     =$r_row['time'];
     });
 
 //write prescriptions
-$app->get('/doctor/prescriptions', function ($request, $response, $args) use ($app) {
+$app->get('/doctor/prescriptions/write', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=='doctor'))
+	{
+		return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 
 	$diseases= $allGetVars['diseases'];
@@ -320,8 +305,14 @@ $app->get('/doctor/prescriptions', function ($request, $response, $args) use ($a
 });
 
 // view prescriptions
-    $app->get('/doctor/prescriptions', function ($request, $response, $args) use ($app) {
+    $app->get('/doctor/prescriptions/read', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=='doctor'))
+	{
+		return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 	$patient_email = $allGetVars['email'];
 	$keyspace = 'test';
@@ -367,7 +358,6 @@ for($c=0; $c<$countRows; $c++){
 	
 	return $response->withJson([
 		'prescriptions' => $out
-		//$result[0]['prescriptions_id']
 		]);
 
 	});
@@ -375,6 +365,12 @@ for($c=0; $c<$countRows; $c++){
 	//view reports
 	$app->get('/doctors/reports', function ($request, $response, $args) use ($app) {
 	include '../connectivity.php';
+	if(!($_SESSION["loggedInAs"]=='doctor'))
+	{
+		return $response->withJson([
+		'message'=>'invalid credentials'
+		]);
+	}
 	$allGetVars = $request->getQueryParams();
 	$patient_email = $allGetVars['email'];
 	$keyspace = 'test';
@@ -400,7 +396,6 @@ for($c=0; $c<$countRows; $c++){
         $a[$c][$r] = 0;
     }
 }
-	//Don't forget the $ sign
 	for ($i = 0; $i < $countRows; $i++) 
 	{
     		$a[$i][0]=$r_result[$i]['r_id'];
@@ -417,7 +412,6 @@ for($c=0; $c<$countRows; $c++){
 	return $response->withJson([
 		'cn' => $countRows,
 		'reports' => $out
-		//$result[0]['prescriptions_id']
 		]);
 	});
 
