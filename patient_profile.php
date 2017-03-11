@@ -173,9 +173,13 @@ foreach ($result as $row) {
                     <li>
                         <a href="#services">Reports</a>
                     </li>
-			<li>
+                    <li>
+                        <a href="#track">Track</a>
+                    </li>
+			         <li>
                         <a href="#writeAPrescription">Write a Prescription</a>
                     </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -305,7 +309,13 @@ foreach ($result as $row) {
         </div>
     </section>
 
-    <section id="writeAPrescription" class="about-section">
+<section id="track" class="about-section">
+<h1>Time line track</h1>
+<a href="slider.php">slider</a>
+</section>
+
+
+    <section id="writeAPrescription" class="services-section">
     
         <div class="container">
             <div class="row">
