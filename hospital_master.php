@@ -2,15 +2,21 @@
 <html lang="en">
 <?php
 //use Cassandra;
+session_start();
+$hnc_email= $_SESSION['userid'];
+$count=1;
+/*echo $hnc_email;*/
 include 'connectivity.php';
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);  
-$id= $_GET['id'] ;      
-$statement = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where hnc_id=".$id.";");
+/*$id= $_GET['id'] ; */     
+
+$statement = new Cassandra\SimpleStatement("SELECT * from hospitalsandclinics where email='".$hnc_email."' ALLOW FILTERING");
 $future    = $session->executeAsync($statement);  // fully asynchronous and easy parallel execution
 $result    = $future->get();                      // wait for the result, with an optional timeout
 foreach ($result as $row) {
-  //echo $row['chemist_id'] . "   " . $row['area'] . "    " . $row['city'] . "<br>";
+    
+  /*echo $row['chemist_id'] . "   " . $row['area'] . "    " . $row['city'] . "<br>";*/
 }
 
 ?>
@@ -29,7 +35,21 @@ foreach ($result as $row) {
 	</script>
 	
    <style type="text/css">
-
+       .form-sec{
+           margin-left: 35%;
+           float: left;
+           align-items: flex-start;
+       }
+       .footer{
+           padding-top: 15px;
+       }
+            .form-control{
+                margin: auto;
+            }
+          /*  .sky-form{
+                margin-left: 35%;
+                float: left;
+            }*/
             ul.paging2 li  {
                 padding-left: 15px;
                 padding-right: 15px;
@@ -119,12 +139,12 @@ foreach ($result as $row) {
                     <li>
                         <a href="#about">Search Blood Bank</a>
                     </li>
-                    <!--<li>
+                    <li>
                         <a href="#services">List of Doctors</a>
                     </li>
                     <li>
-                        <a href="#contact">Reviews</a>
-                    </li>-->
+                        <a href="#contact">Add Doctor</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -179,12 +199,12 @@ foreach ($result as $row) {
                     <li> <span> Orthology </span>  <span style="float: right">  B wing</span> </li>
                     <li> <span> Somelogy </span>  <span style="float: right"> xy4th Floor - B wing</span> </li>
                 </ul>-->
-                    <form method="POST" action="upload_report.php" enctype="multipart/form-data">
-					<input type="file" name="report_form" id="report_form">
-					<input type="submit" name="submit_image" value="Upload" id="submit_image">
-					<input name="search_pid" type="text" class="form-control" id="search_pid" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
+                    <form method="POST" action="search_bloodbank.php" enctype="multipart/form-data">
+					<input name="search_bloodbank" type="text" class="form-control" placeholder="Enter name of BloodBank" size="28" style="width: 50%"name="report_form" id="report_form">
+					<input type="submit" name="search" value="search" id="search"/>
+					<!--<input name="search_pid" type="text" class="form-control" id="search_pid" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
                     <input name="d_id" type="hidden" value="<?= $row['diagnostics_id'] ?>" id="d_id">
-                    <input name="desc_report" type="textarea" id="desc_report">
+                    <input name="desc_report" type="textarea" id="desc_report">-->
 				    </form>
                 </div>
             </div>
@@ -193,54 +213,94 @@ foreach ($result as $row) {
 
 
     <!-- Doctor Section -->
-    <!--<section id="services" class="services-section">
-        <div class="container">
+    <section id="services" class="services-section">
+          <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>List of Doctors</h1>
                     <br><br>
-           	    <div>
+                <div>
                    <ul id="" class = "paging2">
-                    <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:30%"><b>Doctor's Name</b></span> <span style="float: left; width:40%"><b>Timings</b></span><span style="float: left; width:20%"><b>Base fee Rs.</b></span></li>
+                    <li> <span style="float: left; width:10%"><b> SR NO. </b></span> <span  style="float: left; width:25%"><b>Doctor's Name</b></span> <span style="float: left; width:35%"><b>Timings</b></span><span style="float: left; width:20%"><b>Base fee Rs.</b></span></li>
                    
-<?php
+                        <?php
 
-$statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where hnc_id=".$id." ALLOW FILTERING;");
-$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
-$result2    = $future2->get();                      // wait for the result, with an optional timeout
-foreach ($result2 as $row2) {
-  
-
-$statement3 = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=".$row2['doctor_id']." ALLOW FILTERING;");
-$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
-$result3    = $future3->get();                      // wait for the result, with an optional timeout
-foreach ($result3 as $row3) {
-
-?>
-                    <li> <span style="float: left; width:10%"> 1 </span> <span  style="float: left; width:30%"> <?= $row3['fname'].' '.$row3['mname'].' '.$row3['lname'] ?></span> <span style="float: left; width:40%"><?= $row2['dayandtime'] ?></span><span style="float: left; width:20%"> <?= $row2['fees'] ?></span></li>
+                        $statement2 = new Cassandra\SimpleStatement("SELECT * from hospitalemployees where hnc_id=".$row['hnc_id']." ALLOW FILTERING;");
+                        $future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
+                        $result2    = $future2->get();                      // wait for the result, with an optional timeout
+                        foreach ($result2 as $row2) {
 
 
-<?php
-}}
-?>                 
+                        $statement3 = new Cassandra\SimpleStatement("SELECT * from doctor_master where doctor_id=".$row2['doctor_id']." ALLOW FILTERING;");
+                        $future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
+                        $result3    = $future3->get();                      // wait for the result, with an optional timeout
+                        foreach ($result3 as $row3) { 
+                        ?>
+                       <li> <span style="float: left; width:10%"><?= $count ?></span> 
+                            <span  style="float: left; width:25%"> <?= $result3[0]['fname'].' '.$result3[0]['mname'].' '.$result3[0]['lname'] ?></span> 
+                            <span style="float: left; width:35%"><?= $row2['dayandtime'] ?></span>
+                            <span style="float: left; width:20%"> <?= $row2['fees'] ?></span>
+                            <span style="float: left; width:5%"><a href="updatedoctor.php?id=<?= $row3['doctor_id'] ?>"><img id="edit" src="images/edit.jpg" height="20px" width="20px"/></a></span>
+                            <span style="float: left; width:5%"><a href="deletedoctor.php?id=<?= $row3['doctor_id'] ?>"><img id="delete" src="images/delete.jpg" height="20px" width="20px"/></a></span></li>
+
+
+                        <?php
+                            $count = $count + 1;
+                        }}
+                                
+                        ?>                 
                     </ul>
                  </div>
             </div>
-            </div>
+        </div>
         </div>
     </section>
--->
+                        
+                        
     <!-- Review Section -->
-    <!--<section id="contact" class="contact-section">
+    <section id="contact" class="contact-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Reviews</h1>
+                    <h1>Add Doctor</h1>
+                    <br><br>
+           	    <div>
+                    <section class="form-sec">
+                  <form class="sky-form" method="post" action="adddoctor.php">
+               <!-- <input type="hidden" name="type" value="doctor"> -->
+				
+				<fieldset>
+					<section>
+						<label>
+							<!--<i class="icon-append icon-envelope-alt"></i>-->
+							Email:&nbsp;<input type="text" placeholder="Enter Email" id="email" name="email"/>
+							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+						</label>
+					</section>
+                    <section>
+						<label >
+							<!--<i class="icon-append icon-envelope-alt"></i>-->
+							Day and Timings:&nbsp;<input type="text" placeholder="Day Time" id="daytime" name="daytime">
+						</label>
+					</section>
+                    <section>
+						<label >
+							<!--<i class="icon-append icon-envelope-alt"></i>-->
+							Fees Charged:&nbsp;<input type="text" placeholder="Enter fees" id="fees" name="fees">
+						</label>
+					</section>
+				</fieldset>
+				<footer class="footer">
+					<input type="submit" class="button" id="submit" name="submit" value="Submit"/>
+				</footer>
+			</form>
+                    </section>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
--->
+
 	<!--
 	new version from CDN breaks tabs (looks cleaner tho)
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
