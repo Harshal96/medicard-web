@@ -185,31 +185,20 @@ foreach ($result as $row) {
     </section>
 
     <!-- Services Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Search Blood Bank</h1><br>
-                    <!--<ul id="p_list" class = "paging">
-                    <li> <b> <span> Service </span> <span style="float: right"> Department</span> </b></li>
-                    <li> <span > Cardiology </span>  
-                                <span style="float: right"> 4th Floor - left wing</span> </li>
-                    <li> <span>Neurology </span>  <span style="float: right"> 5th floor</span> </li>
-                    <li> <span> Pathology </span>  <span style="float: right"> 6th floor</span> </li>
-                    <li> <span> Orthology </span>  <span style="float: right">  B wing</span> </li>
-                    <li> <span> Somelogy </span>  <span style="float: right"> xy4th Floor - B wing</span> </li>
-                </ul>-->
-                    <form method="POST" action="search_bloodbank.php" enctype="multipart/form-data">
-					<input name="search_bloodbank" type="text" class="form-control" placeholder="Enter name of BloodBank" size="28" style="width: 50%"name="report_form" id="report_form">
-					<input type="submit" name="search" value="search" id="search"/>
-					<!--<input name="search_pid" type="text" class="form-control" id="search_pid" placeholder="Enter Patient MediCard ID" size="28" style="width: 50%" />  
-                    <input name="d_id" type="hidden" value="<?= $row['diagnostics_id'] ?>" id="d_id">
-                    <input name="desc_report" type="textarea" id="desc_report">-->
-				    </form>
+<section id="about" class="contact-section">
+            <div class="container">
+                <div class="row">
+                <h1>Search Blood Bank</h1>
+					<form action="search_bloodbank.php" method="post">
+					<input id="geocomplete" name="geocomplete" type="text" placeholder="Type in an loaction" size="60" /><br>
+                        <input id="bloodtype" name="bloodtype" type="text" placeholder="Enter the blood type" size="60"/>
+                        <footer class="footer">
+					<input type="submit" class="button" id="submit" name="submit" value="Submit"/>
+				</footer>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
     <!-- Doctor Section -->
@@ -305,6 +294,7 @@ foreach ($result as $row) {
 	new version from CDN breaks tabs (looks cleaner tho)
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 	-->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKWCPFv8WEXRCb7V5Dnb6vjpoXL_8UZ-8&libraries=places"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.4.2/velocity.min.js"></script>
@@ -313,6 +303,7 @@ foreach ($result as $row) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <!-- Bootstrap Core JavaScript - old version keeps tabs visible-->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.geocomplete.min.js"></script>
     <!-- Scrolling Nav JavaScript -->
    	<script>
 	$(document).ready(function () {
@@ -339,6 +330,23 @@ $(window).scroll(function() {
     }
 });
 </script>
+    <script>
+		  $(function(){
+
+			$("#geocomplete").geocomplete()
+
+			$("#find").click(function(){
+			  $("#geocomplete").trigger("geocode");
+			});
+
+
+			$("#examples a").click(function(){
+			  $("#geocomplete").val($(this).text()).trigger("geocode");
+			  return false;
+			});
+
+		  });
+		</script>
 </body>
 
 </html>
