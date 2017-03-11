@@ -81,5 +81,23 @@ echo "<script type='text/javascript'>alert('Incorrect Login. Please try again');
 
 }
 
+else if($role=='hospital')
+{
+
+$statement = new Cassandra\SimpleStatement ("SELECT email,hnc_password from hospitalsandclinics where email = '".$username."' and hnc_password = '".$password."' ALLOW FILTERING");
+/*echo "SELECT email,hnc_password from hospitalsandclinics where email = '".$username."' and hnc_password = '".$password."' ALLOW FILTERING";
+    */
+$future = $session->executeAsync($statement);
+
+$result = $future->get();
+
+foreach ($result as $row) {
+	header("Location: hospital_master.php");
+}
+
+echo "<script type='text/javascript'>alert('Incorrect Login. Please try again'); window.location = 'home.html';</script>";
+
+}
+
 
 ?>
