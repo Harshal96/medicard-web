@@ -12,7 +12,7 @@
 	$result = $future->get();
     $f_content=base64_decode($result[0]['file']);
     
-    header('Content-disposition: attachment; filename='.$result[0]['time'].'.pdf');
+    header("Content-disposition: attachment; filename=\"".$result[0]['time'].".pdf"."\"");
     header('content-type: application/octet-stream');
 	
 	echo ($f_content);
