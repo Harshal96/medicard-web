@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style type="text/css">
+<style type="text/css">
 
 /* Table CSS */
 .rwd-table {
@@ -334,7 +334,7 @@ foreach ($result as $row) {
                 write=document.getElementById('MedIncr');
                 function addMed()
                 {
-                write.insertAdjacentHTML('beforeend',"<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\" name=\"MedicineName" + med + "\">&nbsp<input type=\"radio\" name=\"aORb\" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"MedicineName" + med + "01\" value=\"breakfast\"style=\"display:inline;\">Breakfast</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "02\" value=\"lunch\"style=\"display:inline\">Lunch</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "03\" value=\"dinner\"style=\"display:inline\">Dinner</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #ff6666\">X</button></span>");
+                write.insertAdjacentHTML('beforeend',"<span id=\"Medicine" + med + "\"><input type=\"text\"  placeholder=\"Medicine Serial " + med + "\" class=\"form-control\" style=\"width: 50%;display:inline\" name=\"MedicineName" + med + "\">&nbsp<input type=\"radio\" name=\"aORb" + med + "  \" value=\"after\" style=\"display:inline\">After</input> <input type=\"radio\" name=\"aORb" + med + "\" value=\"before\"style=\"display:inline\">Before</input>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type=\"checkbox\" name=\"MedicineName" + med + "01\" value=\"breakfast\"style=\"display:inline;\">Breakfast</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "02\" value=\"lunch\"style=\"display:inline\">Lunch</input>&nbsp<input type=\"checkbox\" name=\"MedicineName" + med + "03\" value=\"dinner\"style=\"display:inline\">Dinner</input><button onclick=\"removeMed(this.parentNode.id);\" style=\"display:inline;background-color: #ff6666\">X</button></span>");
                     med=med + 1;
                 }
                 function removeMed(idSent){
@@ -343,7 +343,7 @@ foreach ($result as $row) {
                     return false;
                 }
             </script>
-			<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />Fees charged
+			Fees charged<input name="Fees" type="text" class="form-control" id="Fees" placeholder="Fees Charged" size="28" style="width: 50%" />
 			<Button type="submit" value="Save" name="saveBtn" >Save</Button>
 		    </form>
                 </div>
