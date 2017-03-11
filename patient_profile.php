@@ -1,17 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style type="text/css">
 
+/* Table CSS */
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px;
+}
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.rwd-table th {
+  display: none;
+}
+.rwd-table td {
+  display: block;
+}
+.rwd-table td:first-child {
+  padding-top: .5em;
+}
+.rwd-table td:last-child {
+  padding-bottom: .5em;
+}
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+@media (min-width: 480px) {
+  .rwd-table td:before {
+    display: none;
+  }
+}
+.rwd-table th, .rwd-table td {
+  text-align: left;
+}
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child, .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child, .rwd-table td:last-child {
+    padding-right: 0;
+  }
+}
+.rwd-table {
+  background: white;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  border:none;
+  border-collapse: collapse;
+  width: 100%
+}
+.rwd-table tr {
+  border-color: #eeeeee;
+}
+
+.rwd-table tr:hover {
+  background: #e0e0e0;
+}
+.rwd-table tr:hover:first-child {
+  background: #eeeeee;
+}
+.rwd-table th, .rwd-table td {
+  margin: .5em 1em;
+  color: BLACK;
+}
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    padding: 1em !important;
+  }
+}
+.rwd-table th, .rwd-table td:before {
+  color: BLACK;
+}
+
+.rwd-table td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.rwd-table td:first-child {
+  border-left: none;
+}
+
+.rwd-table td:last-child {
+  border-right: none;
+}
+/* End Table CSS */
+
+</style>
 <?php
+include 'connectivity.php';
 session_start();
 $doctor_email_here = $_SESSION['userid'];
 $patientemail = $_SESSION['searchpid'];
 
 //use Cassandra;
-$cluster = Cassandra::cluster()
+/*$cluster = Cassandra::cluster()
                ->withContactPoints('192.168.43.219')
                ->withPort(9042)
                ->withCredentials("ria", "medicard")
                ->build();
+*/
 $keyspace  = 'test';
 $session   = $cluster->connect($keyspace);        
 $statement = new Cassandra\SimpleStatement("SELECT * from patient_master where email='".$patientemail."' ALLOW FILTERING");
@@ -123,7 +220,7 @@ foreach ($result as $row) {
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- Prescription Section -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="row">
@@ -164,32 +261,34 @@ foreach ($result as $row) {
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Reports Section -->
     <section id="services" class="services-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                 <h1>Reports</h1>
-		<?php
+                <table class="rwd-table">
+                    <tr>
+                                            <th>Description</th>
+                                            <th>File</th>
+                                            <th>Time</th>
+                                        </tr>
+                                            <?php
+                                            
+                                            $r_statement = new Cassandra\SimpleStatement ("SELECT * from reports where p_id = ".$row['patient_id']." ALLOW FILTERING");
 
-			$statement2 = new Cassandra\SimpleStatement("SELECT * from prescriptions where patient_id=".$ppid." ALLOW FILTERING");
-			$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
-			$result2    = $future2->get();                      // wait for the result, with an optional timeout
-			
-			foreach ($result2 as $row2) {
-				$docid = $row2['doctor_id']; 
+                                            $r_future = $session->executeAsync($r_statement);
 
-				$statement3 = new Cassandra\SimpleStatement("SELECT fname, mname, lname from doctor_master where doctor_id = ".$docid." ALLOW FILTERING");
-				$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
-				$result3    = $future3->get();                      // wait for the result, with an optional timeout
+                                            $r_result = $r_future->get();
 
-				foreach ($result3 as $row3) {
-				//echo $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
-				 }
-				
-				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
-			}
-			?>
+                                            foreach ($r_result as $r_row) 
+                                            {
+                                                echo ('<tr>');
+                                                echo ('<th>'.$r_row['description'] . '</th>' . '<th>' . '<a href="download_report.php?r_id='.$r_row['r_id'] . '">REPORT LINK</a></th>' .  '<th>' .  $r_row['time']  . '</th>');
+                                                echo ('</tr>');
+                                            }
+                                            ?>
+                </table>
 
                 <!--<ul id="r_list" class = "paging reports">
                     <li> <b> <span> Lab name - Location </span> <span style="float: right"> Date</span> </b> </li>
