@@ -197,6 +197,9 @@
                             <a href="#services">Reports</a>
                         </li>
                         <li>
+                            <a href="slider.php">Track</a>
+                        </li
+                        ><li>
                             <a href="#contact">Search</a>
                         </li>
                         <li>
