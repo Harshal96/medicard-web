@@ -174,7 +174,7 @@ foreach ($result as $row) {
                         <a href="#services">Reports</a>
                     </li>
                     <li>
-                        <a href="#track">Track</a>
+                        <a href="slider.php">Track</a>
                     </li>
 			         <li>
                         <a href="#writeAPrescription">Write a Prescription</a>
@@ -308,11 +308,6 @@ foreach ($result as $row) {
             </div>
         </div>
     </section>
-
-<section id="track" class="about-section">
-<h1>Time line track</h1>
-<a href="slider.php">slider</a>
-</section>
 
 
     <section id="writeAPrescription" class="services-section">
