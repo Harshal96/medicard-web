@@ -159,7 +159,7 @@ foreach ($result as $row) {
                    <div class="content">
                         <div style="float:left; width:50%;">
                             <h2 class="m-a-0 m-b-xs"><b><?= $row['name'] ?></b></h2><br> <!-- Set Div As your requirement -->
-                            <img src="images/c9.jpg" style="height:300px">
+                            <img src="images/hospital_avatar.jpg" style="height:300px">
                         </div>
                     </div>
                 <div class="content">

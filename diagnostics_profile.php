@@ -126,7 +126,7 @@ foreach ($result as $row) {
                    <div class="content">
                         <div style="float:left; width:50%;">
                             <h3 class="m-a-0 m-b-xs"><b><?= $row['dname'] ?></b></h3><br> <!-- Set Div As your requirement -->
-                            <img src="images/patienttry.jpg" style="height:250px">
+                            <img src="images/diagnostic_avatar.jpg" style="height:250px">
                             <br>
                             <br><br> <p> <b>MediCard Center ID </b>: <?= $row['diagnostics_id'] ?> </p> 
                                        

@@ -192,7 +192,7 @@
                    <div class="content">
                         <div style="float:left; width:50%;">
                             <h3 class="m-a-0 m-b-xs"><b><?= $row['fname'].' '.$row['mname'].' '.$row['lname']; ?></b></h3><br> <!-- Set Div As your requirement -->
-                            <img src="images/patienttry.jpg" style="height:250px">
+                            <img src="images/doctor_avatar.jpg" style="height:250px">
                             <br>
                             <br><br> <p> <b>MediCard Doctor ID </b>: <?= $row['doctor_id'] ?> </p> 
                                        

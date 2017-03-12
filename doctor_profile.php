@@ -224,7 +224,7 @@ foreach ($result as $row) {
                             <div style="float:left; width:50%;">
                                 <h3 class="m-a-0 m-b-xs"><b><?= $row['fname'].' '.$row['mname'].' '.$row['lname']; ?></b></h3>
                                 <br> <!-- Set Div As your requirement -->
-                                <img src="images/a6.jpg" style="height:250px">
+                                <img src="images/doctor_avatar.jpg" style="height:250px">
                                 <br>
                                 <hr>
                                 <p><b>Email : </b><?= $row['email'] ?></p>
