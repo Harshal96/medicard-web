@@ -253,22 +253,35 @@
 			<?php
 			$ppid = $row['patient_id'];
 
-			$statement2 = new Cassandra\SimpleStatement("SELECT * from prescriptions where patient_id=".$ppid." ALLOW FILTERING");
+			$statement2 = new Cassandra\SimpleStatement("SELECT * from prescriptions where patient_id=".$row['patient_id']." LIMIT 20 ALLOW FILTERING ");
 			$future2    = $session->executeAsync($statement2);  // fully asynchronous and easy parallel execution
 			$result2    = $future2->get();                      // wait for the result, with an optional timeout
-			
+			?>
+			 <table class="rwd-table">
+                    <tr>
+                                            <th>Date</th>
+                                            <th>Symptoms</th>
+                                            <th>Diseases</th>
+                                            <th>Medicines</th>
+                                            <th>Doctor Name</th>
+                    </tr>
+                    <?php
 			foreach ($result2 as $row2) {
 				$docid = $row2['doctor_id']; 
+				//echo $docid;
 				$statement3 = new Cassandra\SimpleStatement("SELECT fname, mname, lname from doctor_master where doctor_id = ".$docid." ALLOW FILTERING");
 				$future3    = $session->executeAsync($statement3);  // fully asynchronous and easy parallel execution
 				$result3    = $future3->get();                      // wait for the result, with an optional timeout
 
-				foreach ($result3 as $row3) {
-					//
-				}
-				
-				  echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
+				foreach ($result3 as $row3) { 
+
+				echo ('<tr>');
+                                                echo ('<td>'.$row2['dop'].'</td><td>'.$row2['symptoms'].'</td>'. '<td>'.$row2['diseases'].'</td> <td>'.$row2['medicines'].'</td><td>'.$row3['fname'] .  "   " . $row3['mname'] .  "   " . $row3['lname'].'</td>');
+                                                echo ('</tr>');
+				  }
+				  //echo $row2['dop'] . "   " . $row2['symptoms'] . "   " . $row2['diseases']  . "   " . $row2['medicines'] . "   " . $result3[0]['fname'] .  "   " . $result3[0]['mname'] .  "   " . $result3[0]['lname'] . "<br>";
 			}
+        
 			?>
                     <!--<ul id="p_list" class = "paging">
                     <li> <b> <span>  Doctor's name - Lab </span> <span style="float: right"> Location Date</span> </b></li>
@@ -279,6 +292,7 @@
                     <li> <span> Dr. J.K.Money </span>  <span style="float: right">  Mumbai &nbsp 10-07-2016</span> </li>
                     <li> <span> Dr. Beshwar - Huge big hospital </span>  <span style="float: right"> xyzmnoplalala, Mumbai &nbsp 10-07-2016</span> </li>
                 </ul>-->
+                </table>
                 </div>
             </div>
         </div>

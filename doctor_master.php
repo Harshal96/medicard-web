@@ -170,14 +170,12 @@
                         <a href="#page-top">About</a>
                     </li>
                     <li>
-                        <a href="#about">something cosulting</a>
+                        <a href="#about">Consults At</a>
                     </li>
                     <li>
-                        <a href="#services">Patient Seacrh</a>
+                        <a href="#services">Patient Search</a>
                     </li>
-                    <li>
-                        <a href="doctor_appt.html">Appointments Manager</a>
-                    </li>
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -227,10 +225,10 @@
                     <div>
             <table class="rwd-table" >
                 <tr>
-                    <th>Movie Title</th>
-                    <th>Genre</th>
-                    <th>Year</th>
-                    <th>Gross</th>
+                    <th>Hospital/Clinic</th>
+                    <th>Address</th>
+                    <th>Timings</th>
+                    <th>Basic Fee</th>
                 </tr>
                 <?php
 
